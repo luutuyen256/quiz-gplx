@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GPLX Audio Quiz Player</title>
+<style>
+  :root {
+    --bg-main: #1e1e2e; --bg-dark: #11111b; --bg-header: #181825; --bg-card: #242538;
+    --bg-active: #313244; --bg-border: #45475a; --bg-correct: #1e3a2f;
+    --text-white: #fff; --text-main: #cdd6f4; --text-muted: #a6adc8; --text-dim: #6c7086;
+    --green: #a6e3a1; --blue: #89b4fa; --orange: #fab387; --red: #f38ba8; --purple: #cba6f7;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg-main); color: var(--text-main); font-family: "Segoe UI", system-ui, sans-serif; }
+  header { background: var(--bg-header); padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  header h1 { margin: 0; font-size: 1.1rem; }
+  .badge { background: var(--purple); color: var(--bg-dark); font-weight: 700; font-size: .75rem; padding: 3px 10px; border-radius: 3px; white-space: nowrap; }
+  main { max-width: 860px; margin: 0 auto; padding: 14px 16px 24px; }
+  .card { background: var(--bg-card); border-radius: 6px; padding: 12px 16px; margin-bottom: 10px; }
+  .card.dark { background: var(--bg-dark); border: 1px solid var(--bg-border); }
+  .row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .space { justify-content: space-between; }
+  #status { font-weight: 700; color: var(--text-muted); }
+  #studyTime { font-family: Consolas, monospace; font-size: 1.15rem; font-weight: 700; color: var(--green); }
+  progress { flex: 1; min-width: 120px; height: 8px; accent-color: var(--blue); }
+  .muted { color: var(--text-muted); font-size: .85rem; }
+  .tag { font-size: .75rem; font-weight: 700; padding: 2px 8px; border-radius: 3px; background: var(--bg-active); color: var(--text-white); }
+  .tag.chap { background: var(--bg-dark); color: var(--text-muted); font-weight: 400; }
+  .tag.crit { background: var(--red); color: var(--bg-dark); }
+  .tag.miss { background: var(--orange); color: var(--bg-dark); }
+  #prompt { font-size: 1.1rem; font-weight: 700; color: var(--text-white); margin: 8px 0 2px; line-height: 1.45; }
+  #prompt.hint { font-weight: 400; color: var(--text-muted); font-size: 1rem; }
+  .opt { display: flex; align-items: center; gap: 10px; background: var(--bg-card); border: 1px solid var(--bg-border); border-radius: 4px; padding: 9px 12px; margin-bottom: 6px; }
+  .opt .n { font-family: Consolas, monospace; font-weight: 700; color: var(--orange); min-width: 32px; }
+  .opt .t { flex: 1; line-height: 1.4; }
+  .opt .ok { display: none; font-weight: 700; color: var(--green); }
+  .opt.active { background: var(--bg-active); }
+  .opt.active .t { color: var(--text-white); }
+  .opt.correct { background: var(--bg-correct); }
+  .opt.correct .n, .opt.correct .t { color: var(--green); }
+  .opt.correct .ok { display: block; }
+  #thinkMsg { font-weight: 700; color: var(--text-muted); font-size: .9rem; }
+  button { font: inherit; font-weight: 700; font-size: .9rem; border: 0; border-radius: 4px; padding: 9px 14px; background: var(--bg-active); color: var(--text-main); cursor: pointer; }
+  button:hover:not(:disabled) { filter: brightness(1.2); }
+  button:disabled { opacity: .4; cursor: default; }
+  button.play { background: var(--green); color: var(--bg-dark); padding: 9px 20px; }
+  button.play.paused { background: var(--orange); }
+  button.stop { background: var(--red); color: var(--bg-dark); margin-left: auto; }
+  fieldset { border: 1px solid var(--bg-border); border-radius: 6px; margin: 0; padding: 8px 14px 10px; }
+  legend { color: var(--blue); font-weight: 700; font-size: .85rem; padding: 0 6px; }
+  label { font-size: .85rem; display: inline-flex; align-items: center; gap: 5px; }
+  select { background: var(--bg-active); color: var(--text-main); border: 1px solid var(--bg-border); border-radius: 4px; padding: 3px 6px; }
+  .keys { font-size: .75rem; color: var(--text-dim); margin: 6px 0 10px; }
+  #hint { color: var(--orange); font-style: italic; font-size: .75rem; }
+</style>
+</head>
+<body>
+<header>
+  <h1>🎧 GPLX Audio Quiz Player</h1>
+  <span class="badge" id="sessionBadge">PHIÊN SỐ 0</span>
+</header>
+
+<main>
+  <div class="card dark">
+    <div class="row space">
+      <span id="status">● SẴN SÀNG</span>
+      <span id="studyTime">⏱ 00:00:00</span>
+    </div>
+    <div class="row" style="margin-top:6px">
+      <span class="muted" id="counter">Câu: 0 / 0</span>
+      <progress id="progSession" max="100" value="0"></progress>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="row">
+      <span class="tag" id="qId">ID: ---</span>
+      <span class="tag chap" id="qChapter">Chương: ---</span>
+      <span class="tag crit" id="qCrit" hidden>⚠ CÂU ĐIỂM LIỆT</span>
+      <span class="tag miss" id="qMiss" hidden>🔇 THIẾU AUDIO</span>
+    </div>
+    <div id="prompt" class="hint">Nhấn “▶ Bắt đầu học” (hoặc phím Space) để khởi động phiên học âm thanh…</div>
+  </div>
+
+  <div id="options"></div>
+
+  <div class="card dark">
+    <div class="row">
+      <span id="thinkMsg">Trạng thái: Đang chờ bắt đầu</span>
+      <progress id="progThink" max="100" value="0"></progress>
+    </div>
+  </div>
+
+  <div class="row" style="margin-bottom:10px">
+    <button class="play" id="btnPlay">▶ Bắt đầu học</button>
+    <button id="btnPrev" disabled>⏮ Câu trước</button>
+    <button id="btnReplay" disabled>🔁 Nghe lại</button>
+    <button id="btnClip" disabled style="color:var(--blue)">🔂 Nghe lại đoạn</button>
+    <button id="btnNext" disabled>⏭ Câu tiếp</button>
+    <button class="stop" id="btnStop" disabled>⏹ Dừng</button>
+  </div>
+  <div class="keys">Phím tắt: Space tạm dừng/tiếp tục · ← câu trước · → câu tiếp · R nghe lại câu · ↑ nghe lại đoạn · Esc dừng</div>
+
+  <fieldset>
+    <legend>Cấu hình</legend>
+    <div class="row">
+      <label><input type="checkbox" id="cfgAutoloop"> 🔁 Tự lặp phiên mới khi hết câu</label>
+      <label><input type="checkbox" id="cfgShuffle"> 🔀 Trộn ngẫu nhiên</label>
+      <label><input type="checkbox" id="cfgReady"> 🎙 Chỉ câu đã có audio</label>
+    </div>
+    <div class="row" style="margin-top:6px">
+      <label>Thời gian suy nghĩ:
+        <select id="cfgThink"><option>2.0</option><option>3.0</option><option>4.0</option><option>5.0</option><option>7.0</option></select> s
+      </label>
+      <label>Số câu/phiên:
+        <select id="cfgLimit">
+          <option value="0">Tất cả</option><option value="20">20 câu (Thi thử)</option>
+          <option value="35">35 câu</option><option value="50">50 câu</option><option value="100">100 câu</option>
+        </select>
+      </label>
+      <span id="hint"></span>
+    </div>
+    <div class="row muted" style="margin-top:6px">
+      <span id="voiceStatus">Đang tải dữ liệu…</span>
+      <progress id="progVoice" max="100" value="0" style="max-width:160px"></progress>
+    </div>
+  </fieldset>
+</main>
+
+<script>window.AUDIO_QUIZ_CONFIG={"questionsUrl": "../questions.json", "classificationUrl": "../classification.json", "manifestUrl": "audio-index.json", "audioRoot": ".", "clipDir": "mp3", "ext": "mp3"};</script>
+<script src="app.js"></script>
+</body>
+</html>
