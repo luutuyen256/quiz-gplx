@@ -66,7 +66,7 @@
       },
       {
         "id": 2,
-        "text": "Là khoảng trống có kích thước giới hạn về chiều rộng của đường, cầu, bến phà, hầm trên đường b ộ để các xe kể cả hàng hóa xếp trên xe đi qua được an toàn."
+        "text": "Là khoảng trống có kích thước giới hạn về chiều rộng của đường, cầu, bến phà, hầm trên đường bộ để các xe kể cả hàng hóa xếp trên xe đi qua được an toàn."
       },
       {
         "id": 3,
@@ -938,7 +938,7 @@
   {
     "id": 35,
     "chapter": "I",
-    "prompt": "Người điều khiển xe mô tô phải phải quan sát, giảm tốc độ hoặc dừng lại để bảo đảm an toàn trong các trường hợp nào dưới đây?",
+    "prompt": "Người điều khiển xe mô tô phải quan sát, giảm tốc độ hoặc dừng lại để bảo đảm an toàn trong các trường hợp nào dưới đây?",
     "options": [
       {
         "id": 1,
@@ -4008,7 +4008,7 @@
       },
       {
         "id": 2,
-        "text": "Sau thời hạn ít nhất là 06 tháng kể từ ngày bị trừ hết điểm, người có phép lái xe được tham gia kiểm tra nội dung kiến thức pháp luật về trật tự, an toàn giao thông đường bộ theo quy định, có kết quả đạt yêu cầu thì được phục hồi đủ 12 điểm."
+        "text": "Sau thời hạn ít nhất là 06 tháng kể từ ngày bị trừ hết điểm, người có giấy phép lái xe được tham gia kiểm tra nội dung kiến thức pháp luật về trật tự, an toàn giao thông đường bộ theo quy định, có kết quả đạt yêu cầu thì được phục hồi đủ 12 điểm."
       },
       {
         "id": 3,
@@ -4264,7 +4264,7 @@
       },
       {
         "id": 4,
-        "text": "Ô tô kéo rơ moóc; ô tô kéo xe khác; ô tô trộn vữa, ô tô trộn bê tông lưu động, ô tô xi téc, ô tô đầu kéo kéo sơ mi rơ moóc xi téc, ô tô kéo theo rơ moóc xi téc)."
+        "text": "Ô tô kéo rơ moóc; ô tô kéo xe khác; ô tô trộn vữa, ô tô trộn bê tông lưu động, ô tô xi téc, ô tô đầu kéo kéo sơ mi rơ moóc xi téc, ô tô kéo theo rơ moóc xi téc."
       }
     ],
     "images": [],
@@ -5052,7 +5052,7 @@
   {
     "id": 177,
     "chapter": "I",
-    "prompt": "Việc lưu hành xe ô tô của người nước ngoài đăng ký tại nước ngoài có tay lái ở bên phải tham gia giao thông tại Việt Nam, xe cơ giới nước ngoài do người nước ngoài đưa vào Việt Nam du lịch được quy định như như thế nào?",
+    "prompt": "Việc lưu hành xe ô tô của người nước ngoài đăng ký tại nước ngoài có tay lái ở bên phải tham gia giao thông tại Việt Nam, xe cơ giới nước ngoài do người nước ngoài đưa vào Việt Nam du lịch được quy định như thế nào?",
     "options": [
       {
         "id": 1,
@@ -5520,7 +5520,7 @@
   {
     "id": 194,
     "chapter": "II",
-    "prompt": "Người điều khiển phương tiện tham giao thông đường bộ gây ra tai nạn giao thông đường bộ, người liên quan đến vụ tai nạn giao thông đường bộ có trách nhiệm gì dưới đây?",
+    "prompt": "Người điều khiển phương tiện tham gia giao thông đường bộ gây ra tai nạn giao thông đường bộ, người liên quan đến vụ tai nạn giao thông đường bộ có trách nhiệm gì dưới đây?",
     "options": [
       {
         "id": 1,
@@ -5552,7 +5552,7 @@
   {
     "id": 195,
     "chapter": "II",
-    "prompt": "Người có mặt tại nơi xảy ra vụ tai giao thông đường bộ có trách nhiệm gì dưới đây?",
+    "prompt": "Người có mặt tại nơi xảy ra vụ tai nạn giao thông đường bộ có trách nhiệm gì dưới đây?",
     "options": [
       {
         "id": 1,
@@ -6108,7 +6108,7 @@
     "options": [
       {
         "id": 1,
-        "text": "Quan sát cẩn thận các chướng ngại vật và báo hiệu bằng coi, đèn; giảm tốc độ tới mức cần thiết, về số thấp và thực hiện quay vòng với tốc độ phù hợp với bán kính cong của đường vòng."
+        "text": "Quan sát cẩn thận các chướng ngại vật và báo hiệu bằng còi, đèn; giảm tốc độ tới mức cần thiết, về số thấp và thực hiện quay vòng với tốc độ phù hợp với bán kính cong của đường vòng."
       },
       {
         "id": 2,
@@ -7675,7 +7675,7 @@
     "options": [
       {
         "id": 1,
-        "text": "Bánh xe phải có kết cấu chắc chắn, lắp đặt đúng quy cách của nhà sản xuât."
+        "text": "Bánh xe phải có kết cấu chắc chắn, lắp đặt đúng quy cách của nhà sản xuất."
       },
       {
         "id": 2,
@@ -7951,7 +7951,7 @@
     "options": [
       {
         "id": 1,
-        "text": "Khi làm việc, nhiệt năng được biến đổi thành cơ năng làm trục khủy động cơ quay, truyền lực đến các bánh xe chủ động tạo ra chuyển động tịnh tiến cho xe ô tô."
+        "text": "Khi làm việc, nhiệt năng được biến đổi thành cơ năng làm trục khuỷu động cơ quay, truyền lực đến các bánh xe chủ động tạo ra chuyển động tịnh tiến cho xe ô tô."
       },
       {
         "id": 2,
@@ -8015,7 +8015,7 @@
       },
       {
         "id": 3,
-        "text": "Dùng để truyền truyền động từ hộp số đến bánh xe chủ động của ô tô."
+        "text": "Dùng để truyền động từ hộp số đến bánh xe chủ động của ô tô."
       }
     ],
     "images": [],
@@ -17629,7 +17629,7 @@
     "options": [
       {
         "id": 1,
-        "text": "Xe tải ( D), xe con (B)."
+        "text": "Xe tải (D), xe con (B)."
       },
       {
         "id": 2,
@@ -18073,7 +18073,7 @@
       },
       {
         "id": 3,
-        "text": "Xe tải ( D), xe con (B)."
+        "text": "Xe tải (D), xe con (B)."
       },
       {
         "id": 4,
@@ -19068,7 +19068,7 @@
   {
     "id": 595,
     "chapter": "VI",
-    "prompt": "Khi gặp xe ngược chiều bật đèn pha trong tình huống dưới dây, bạn xử lý như thế nào?",
+    "prompt": "Khi gặp xe ngược chiều bật đèn pha trong tình huống dưới đây, bạn xử lý như thế nào?",
     "options": [
       {
         "id": 1,
