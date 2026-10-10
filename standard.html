@@ -7,27 +7,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="theme.css">
+  <script src="theme.js"></script>
   <style>
-    :root {
-      --bg: #090a0f;
-      --surface: #11141b;
-      --surface-elevated: #161a23;
-      --surface-hover: #1c212c;
-      --border: rgba(255, 255, 255, 0.08);
-      --border-subtle: rgba(255, 255, 255, 0.04);
-      --border-focus: rgba(226, 183, 114, 0.4);
-      --text: #f0f2f5;
-      --text-muted: #8b92a0;
-      --text-dim: #545b69;
-      --accent-gold: #e2b772;
-      --accent-gold-soft: rgba(226, 183, 114, 0.12);
-      --accent-cyan: #38bdf8;
-      --accent-emerald: #10b981;
-      --accent-rose: #f43f5e;
-      --font-mono: 'JetBrains Mono', monospace;
-      --radius-xs: 3px;
-      --radius-sm: 6px;
-      --radius-md: 8px;
+    .header-actions { display: flex; gap: 8px; align-items: center; }
+    .header-inner { gap: 12px 16px; }
+    @media (max-width: 640px) {
+      .header-actions { order: 2; margin-left: auto; }
+      .brand-block { order: 1; flex: 1; min-width: 0; }
+      .law-tag { order: 3; flex-basis: 100%; }
     }
 
     * {
@@ -82,7 +70,7 @@
       font-size: 1.15rem;
       font-weight: 600;
       letter-spacing: -0.01em;
-      color: #fff;
+      color: var(--text-strong);
     }
 
     .law-tag {
@@ -92,7 +80,7 @@
       border: 1px solid var(--border);
       padding: 4px 10px;
       border-radius: var(--radius-xs);
-      background: rgba(255, 255, 255, 0.02);
+      background: var(--overlay-weak);
     }
 
     /* Hero / Editorial Statement */
@@ -108,7 +96,7 @@
       letter-spacing: -0.025em;
       line-height: 1.3;
       margin-bottom: 14px;
-      color: #ffffff;
+      color: var(--text-strong);
     }
 
     .hero-intro {
@@ -173,7 +161,7 @@
       font-size: 1.35rem;
       font-weight: 600;
       letter-spacing: -0.015em;
-      color: #fff;
+      color: var(--text-strong);
     }
 
     .btn-audio-listen {
@@ -238,7 +226,7 @@
       font-family: var(--font-mono);
       font-size: 1.9rem;
       font-weight: 600;
-      color: #fff;
+      color: var(--text-strong);
       letter-spacing: -0.02em;
     }
 
@@ -259,7 +247,7 @@
     }
 
     .matrix-body strong {
-      color: #fff;
+      color: var(--text-strong);
       font-weight: 600;
     }
 
@@ -276,7 +264,7 @@
       font-family: var(--font-mono);
       font-size: 0.72rem;
       color: var(--text-muted);
-      background: rgba(255, 255, 255, 0.03);
+      background: var(--overlay-weak);
       border: 1px solid var(--border);
       padding: 2px 7px;
       border-radius: var(--radius-xs);
@@ -286,9 +274,9 @@
     }
 
     .q-ref:hover {
-      color: #fff;
+      color: var(--text-strong);
       border-color: var(--text-muted);
-      background: rgba(255, 255, 255, 0.08);
+      background: var(--overlay);
     }
 
     /* Structured Data Tables */
@@ -328,7 +316,7 @@
     }
 
     table.editorial-table tr:hover td {
-      background: rgba(255, 255, 255, 0.015);
+      background: var(--overlay-weak);
       color: var(--text);
     }
 
@@ -337,7 +325,7 @@
     }
 
     td.cell-bold {
-      color: #fff;
+      color: var(--text-strong);
       font-weight: 500;
     }
 
@@ -345,7 +333,7 @@
       font-family: var(--font-mono);
       font-weight: 600;
       font-size: 0.95rem;
-      color: #fff;
+      color: var(--text-strong);
       display: inline-block;
     }
 
@@ -359,8 +347,8 @@
     }
 
     .tag-60 { color: #60a5fa; border-color: rgba(96, 165, 250, 0.25); background: rgba(96, 165, 250, 0.05); }
-    .tag-50 { color: #34d399; border-color: rgba(52, 211, 153, 0.25); background: rgba(52, 211, 153, 0.05); }
-    .tag-90 { color: #fb7185; border-color: rgba(251, 113, 133, 0.25); background: rgba(251, 113, 133, 0.05); }
+    .tag-50 { color: var(--ok); border-color: var(--ok); background: rgba(52, 211, 153, 0.05); }
+    .tag-90 { color: var(--bad); border-color: rgba(251, 113, 133, 0.25); background: rgba(251, 113, 133, 0.05); }
     .tag-80 { color: #fbbf24; border-color: rgba(251, 191, 36, 0.25); background: rgba(251, 191, 36, 0.05); }
     .tag-70 { color: #c084fc; border-color: rgba(192, 132, 252, 0.25); background: rgba(192, 132, 252, 0.05); }
     .tag-40 { color: #94a3b8; border-color: rgba(148, 163, 184, 0.25); background: rgba(148, 163, 184, 0.05); }
@@ -396,7 +384,7 @@
     }
 
     .insight-body strong {
-      color: #fff;
+      color: var(--text-strong);
       font-weight: 500;
     }
 
@@ -439,7 +427,7 @@
     }
 
     .glyph-p127 {
-      background: #fff;
+      background: var(--text-strong);
       border: 5px solid #dc2626;
       color: #000;
       font-size: 1.35rem;
@@ -517,7 +505,7 @@
     .sign-meta-title {
       font-size: 0.9rem;
       font-weight: 600;
-      color: #fff;
+      color: var(--text-strong);
       margin-bottom: 3px;
     }
 
@@ -542,7 +530,7 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius-xs);
-      color: #fff;
+      color: var(--text-strong);
       padding: 10px 14px;
       font-size: 0.88rem;
       font-family: inherit;
@@ -573,7 +561,7 @@
     }
 
     .filter-btn:hover {
-      color: #fff;
+      color: var(--text-strong);
       border-color: var(--text-muted);
     }
 
@@ -602,7 +590,7 @@
     }
 
     .question-item:hover {
-      border-color: rgba(255, 255, 255, 0.15);
+      border-color: var(--overlay-strong);
     }
 
     .question-header {
@@ -616,8 +604,8 @@
       font-family: var(--font-mono);
       font-size: 0.72rem;
       font-weight: 600;
-      color: #fff;
-      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-strong);
+      background: var(--overlay);
       border: 1px solid var(--border);
       padding: 2px 7px;
       border-radius: var(--radius-xs);
@@ -626,14 +614,14 @@
 
     .q-id-pill.is-critical {
       color: var(--accent-rose);
-      border-color: rgba(244, 63, 94, 0.3);
-      background: rgba(244, 63, 94, 0.08);
+      border-color: var(--bad);
+      background: var(--bad-soft);
     }
 
     .q-prompt-text {
       font-size: 0.92rem;
       font-weight: 500;
-      color: #f1f3f7;
+      color: var(--text);
       line-height: 1.55;
     }
 
@@ -654,9 +642,9 @@
     }
 
     .q-opt-row.is-correct {
-      background: rgba(52, 211, 153, 0.06);
-      border-color: rgba(52, 211, 153, 0.25);
-      color: #34d399;
+      background: var(--ok-soft);
+      border-color: var(--ok);
+      color: var(--ok);
       font-weight: 500;
     }
 
@@ -666,7 +654,7 @@
       bottom: 0;
       left: 0;
       right: 0;
-      background: rgba(13, 16, 23, 0.92);
+      background: color-mix(in srgb, var(--surface) 92%, transparent);
       backdrop-filter: blur(12px);
       border-top: 1px solid var(--border);
       padding: 12px 24px;
@@ -694,8 +682,8 @@
       width: 38px;
       height: 38px;
       border-radius: 50%;
-      background: #fff;
-      color: #000;
+      background: var(--text-strong);
+      color: var(--bg);
       border: none;
       display: flex;
       align-items: center;
@@ -724,7 +712,7 @@
     .dock-track-name {
       font-size: 0.86rem;
       font-weight: 600;
-      color: #fff;
+      color: var(--text-strong);
     }
 
     .dock-track-status {
@@ -753,7 +741,7 @@
       flex: 1;
       -webkit-appearance: none;
       height: 3px;
-      background: rgba(255, 255, 255, 0.12);
+      background: var(--overlay-strong);
       border-radius: 2px;
       outline: none;
       cursor: pointer;
@@ -764,7 +752,7 @@
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      background: #fff;
+      background: var(--text-strong);
       cursor: pointer;
       transition: transform 0.1s ease;
     }
@@ -791,16 +779,16 @@
     }
 
     .speed-pill:hover, .speed-pill.active {
-      color: #fff;
+      color: var(--text-strong);
       border-color: var(--text-muted);
-      background: rgba(255, 255, 255, 0.08);
+      background: var(--overlay);
     }
 
     /* Scrollbar */
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.12); border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
+    ::-webkit-scrollbar-thumb { background: var(--overlay-strong); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--overlay-strong); }
 
     @media (max-width: 768px) {
       .hero-heading { font-size: 1.6rem; }
@@ -809,6 +797,14 @@
       .dock-timeline { max-width: 100%; }
       .dock-speeds { justify-content: flex-end; }
     }
+
+    /* Light mode: tag tốc độ dùng sắc đậm để đủ tương phản */
+    :root[data-theme="light"] .tag-60 { color: #1d4ed8; background: rgba(29, 78, 216, 0.07); border-color: rgba(29, 78, 216, 0.3); }
+    :root[data-theme="light"] .tag-50 { color: #047857; background: rgba(4, 120, 87, 0.07); border-color: rgba(4, 120, 87, 0.3); }
+    :root[data-theme="light"] .tag-90 { color: #be123c; background: rgba(190, 18, 60, 0.07); border-color: rgba(190, 18, 60, 0.3); }
+    :root[data-theme="light"] .tag-80 { color: #a16207; background: rgba(161, 98, 7, 0.08); border-color: rgba(161, 98, 7, 0.3); }
+    :root[data-theme="light"] .tag-70 { color: #7e22ce; background: rgba(126, 34, 206, 0.07); border-color: rgba(126, 34, 206, 0.3); }
+    :root[data-theme="light"] .tag-40 { color: #475569; background: rgba(71, 85, 105, 0.07); border-color: rgba(71, 85, 105, 0.3); }
   </style>
 </head>
 <body>
@@ -817,11 +813,12 @@
     <!-- Top Header -->
     <header class="site-header">
       <div class="header-inner">
-        <div>
+        <div class="brand-block">
           <span class="brand-eyebrow">Tài liệu ôn luyện sát hạch</span>
           <div class="brand-title">Quy Chuẩn Độ Tuổi & Tốc Độ • 600 Câu Hỏi Lý Thuyết</div>
         </div>
         <div class="law-tag">Luật TTATGTĐB số 36/2024/QH15 • Hiệu lực 01/01/2025</div>
+        <div class="header-actions"><a class="home-link" href="./" style="margin:0">← Menu</a><button class="theme-toggle" data-theme-toggle type="button" style="margin:0"></button></div>
       </div>
     </header>
 
@@ -958,10 +955,10 @@
               <td>Tương đương hạng E cũ</td>
               <td><span class="q-ref" onclick="filterQuestion(120)">Câu 120</span></td>
             </tr>
-            <tr style="background: rgba(244, 63, 94, 0.04);">
-              <td class="cell-bold" style="color: #fb7185;">Tuổi tối đa</td>
+            <tr style="background: var(--bad-soft);">
+              <td class="cell-bold" style="color: var(--bad);">Tuổi tối đa</td>
               <td>Lái xe ô tô chở người trên 29 chỗ &amp; xe giường nằm:<br><strong>Nam: Đủ 57 tuổi — Nữ: Đủ 55 tuổi</strong></td>
-              <td><span style="color: #fb7185; font-weight: 500;">Quy định mới</span> (trước đây là 55 nam / 50 nữ)</td>
+              <td><span style="color: var(--bad); font-weight: 500;">Quy định mới</span> (trước đây là 55 nam / 50 nữ)</td>
               <td><span class="q-ref" onclick="filterQuestion(121)">Câu 121</span></td>
             </tr>
           </tbody>
@@ -1083,7 +1080,7 @@
         <table class="editorial-table">
           <thead>
             <tr>
-              <th colspan="4" style="background: rgba(255, 255, 255, 0.04); color: #fff;">A. Trong khu vực đông dân cư</th>
+              <th colspan="4" style="background: var(--overlay-weak); color: var(--text-strong);">A. Trong khu vực đông dân cư</th>
             </tr>
             <tr>
               <th>Cấu trúc hạ tầng giao thông</th>
@@ -1120,7 +1117,7 @@
         <table class="editorial-table">
           <thead>
             <tr>
-              <th colspan="5" style="background: rgba(255, 255, 255, 0.04); color: #fff;">B. Ngoài khu vực đông dân cư (Trừ đường cao tốc)</th>
+              <th colspan="5" style="background: var(--overlay-weak); color: var(--text-strong);">B. Ngoài khu vực đông dân cư (Trừ đường cao tốc)</th>
             </tr>
             <tr>
               <th>Đường đôi (≥ 2 làn)</th>
@@ -1161,7 +1158,7 @@
                 <span class="q-ref" onclick="filterQuestion(155)">Câu 155</span>
               </td>
             </tr>
-            <tr style="background: rgba(244, 63, 94, 0.04);">
+            <tr style="background: var(--bad-soft);">
               <td><span class="speed-tag tag-60">60 km/h</span></td>
               <td><span class="speed-tag tag-50">50 km/h</span></td>
               <td class="cell-bold">Ô tô kéo rơ moóc, kéo xe khác, ô tô trộn vữa, bê tông, ô tô xi téc</td>

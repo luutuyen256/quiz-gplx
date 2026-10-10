@@ -112,6 +112,7 @@ function setThink(text, color, progress) {
 
 function updateButtons() {
   const on = !!state.session;
+  if (on) document.body.classList.add("started");
   for (const id of ["btnPrev", "btnReplay", "btnClip", "btnNext", "btnStop"]) $(id).disabled = !on;
   const play = $("btnPlay");
   if (!on) { play.textContent = "▶ Bắt đầu học"; play.classList.remove("paused"); }

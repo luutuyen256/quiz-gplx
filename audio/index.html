@@ -4,35 +4,40 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GPLX Audio Quiz Player</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../theme.css">
+<script src="../theme.js"></script>
 <style>
   :root {
-    --bg-main: #1e1e2e; --bg-dark: #11111b; --bg-header: #181825; --bg-card: #242538;
-    --bg-active: #313244; --bg-border: #45475a; --bg-correct: #1e3a2f;
-    --text-white: #fff; --text-main: #cdd6f4; --text-muted: #a6adc8; --text-dim: #6c7086;
-    --green: #a6e3a1; --blue: #89b4fa; --orange: #fab387; --red: #f38ba8; --purple: #cba6f7;
+    --bg-main: var(--bg); --bg-dark: var(--surface-elevated); --bg-header: var(--surface); --bg-card: var(--surface);
+    --bg-active: var(--surface-hover); --bg-border: var(--border); --bg-correct: var(--ok-soft);
+    --text-white: var(--text-strong); --text-main: var(--text);
+    --green: var(--ok); --blue: var(--accent-cyan); --orange: var(--warn); --red: var(--bad); --purple: var(--accent-gold);
   }
   * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg-main); color: var(--text-main); font-family: "Segoe UI", system-ui, sans-serif; }
-  header { background: var(--bg-header); padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-  header h1 { margin: 0; font-size: 1.1rem; }
-  .badge { background: var(--purple); color: var(--bg-dark); font-weight: 700; font-size: .75rem; padding: 3px 10px; border-radius: 3px; white-space: nowrap; }
+  body { margin: 0; background: var(--bg-main); color: var(--text-main); font-family: var(--font); line-height: 1.5; }
+  header { background: var(--bg-header); border-bottom: 1px solid var(--border-subtle); padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  header h1 { margin: 0; font-size: 1.1rem; flex: 1; font-weight: 600; }
+  .badge { background: var(--purple); color: var(--on-accent); font-weight: 700; font-size: .75rem; padding: 3px 10px; border-radius: 3px; white-space: nowrap; }
   main { max-width: 860px; margin: 0 auto; padding: 14px 16px 24px; }
   .card { background: var(--bg-card); border-radius: 6px; padding: 12px 16px; margin-bottom: 10px; }
   .card.dark { background: var(--bg-dark); border: 1px solid var(--bg-border); }
   .row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
   .space { justify-content: space-between; }
   #status { font-weight: 700; color: var(--text-muted); }
-  #studyTime { font-family: Consolas, monospace; font-size: 1.15rem; font-weight: 700; color: var(--green); }
+  #studyTime { font-family: var(--font-mono); font-size: 1.15rem; font-weight: 700; color: var(--green); }
   progress { flex: 1; min-width: 120px; height: 8px; accent-color: var(--blue); }
   .muted { color: var(--text-muted); font-size: .85rem; }
   .tag { font-size: .75rem; font-weight: 700; padding: 2px 8px; border-radius: 3px; background: var(--bg-active); color: var(--text-white); }
   .tag.chap { background: var(--bg-dark); color: var(--text-muted); font-weight: 400; }
-  .tag.crit { background: var(--red); color: var(--bg-dark); }
-  .tag.miss { background: var(--orange); color: var(--bg-dark); }
+  .tag.crit { background: var(--red); color: var(--on-accent); }
+  .tag.miss { background: var(--orange); color: var(--on-accent); }
   #prompt { font-size: 1.1rem; font-weight: 700; color: var(--text-white); margin: 8px 0 2px; line-height: 1.45; }
   #prompt.hint { font-weight: 400; color: var(--text-muted); font-size: 1rem; }
   .opt { display: flex; align-items: center; gap: 10px; background: var(--bg-card); border: 1px solid var(--bg-border); border-radius: 4px; padding: 9px 12px; margin-bottom: 6px; }
-  .opt .n { font-family: Consolas, monospace; font-weight: 700; color: var(--orange); min-width: 32px; }
+  .opt .n { font-family: var(--font-mono); font-weight: 700; color: var(--orange); min-width: 32px; }
   .opt .t { flex: 1; line-height: 1.4; }
   .opt .ok { display: none; font-weight: 700; color: var(--green); }
   .opt.active { background: var(--bg-active); }
@@ -44,25 +49,28 @@
   button { font: inherit; font-weight: 700; font-size: .9rem; border: 0; border-radius: 4px; padding: 9px 14px; background: var(--bg-active); color: var(--text-main); cursor: pointer; }
   button:hover:not(:disabled) { filter: brightness(1.2); }
   button:disabled { opacity: .4; cursor: default; }
-  button.play { background: var(--green); color: var(--bg-dark); padding: 9px 20px; }
+  button.play { background: var(--green); color: var(--on-accent); padding: 9px 20px; }
   button.play.paused { background: var(--orange); }
-  button.stop { background: var(--red); color: var(--bg-dark); margin-left: auto; }
+  button.stop { background: var(--red); color: var(--on-accent); margin-left: auto; }
   fieldset { border: 1px solid var(--bg-border); border-radius: 6px; margin: 0; padding: 8px 14px 10px; }
   legend { color: var(--blue); font-weight: 700; font-size: .85rem; padding: 0 6px; }
   label { font-size: .85rem; display: inline-flex; align-items: center; gap: 5px; }
   select { background: var(--bg-active); color: var(--text-main); border: 1px solid var(--bg-border); border-radius: 4px; padding: 3px 6px; }
   .keys { font-size: .75rem; color: var(--text-dim); margin: 6px 0 10px; }
   #hint { color: var(--orange); font-style: italic; font-size: .75rem; }
+  body:not(.started) .live { display: none !important; }
 </style>
 </head>
 <body>
 <header>
+  <a class="home-link" href="../" style="margin:0">← Menu</a>
   <h1>🎧 GPLX Audio Quiz Player</h1>
   <span class="badge" id="sessionBadge">PHIÊN SỐ 0</span>
+  <button class="theme-toggle" data-theme-toggle type="button" style="margin:0"></button>
 </header>
 
 <main>
-  <div class="card dark">
+  <div class="card dark live">
     <div class="row space">
       <span id="status">● SẴN SÀNG</span>
       <span id="studyTime">⏱ 00:00:00</span>
@@ -74,7 +82,7 @@
   </div>
 
   <div class="card">
-    <div class="row">
+    <div class="row live">
       <span class="tag" id="qId">ID: ---</span>
       <span class="tag chap" id="qChapter">Chương: ---</span>
       <span class="tag crit" id="qCrit" hidden>⚠ CÂU ĐIỂM LIỆT</span>
@@ -85,7 +93,7 @@
 
   <div id="options"></div>
 
-  <div class="card dark">
+  <div class="card dark live">
     <div class="row">
       <span id="thinkMsg">Trạng thái: Đang chờ bắt đầu</span>
       <progress id="progThink" max="100" value="0"></progress>
@@ -94,13 +102,13 @@
 
   <div class="row" style="margin-bottom:10px">
     <button class="play" id="btnPlay">▶ Bắt đầu học</button>
-    <button id="btnPrev" disabled>⏮ Câu trước</button>
-    <button id="btnReplay" disabled>🔁 Nghe lại</button>
-    <button id="btnClip" disabled style="color:var(--blue)">🔂 Nghe lại đoạn</button>
-    <button id="btnNext" disabled>⏭ Câu tiếp</button>
-    <button class="stop" id="btnStop" disabled>⏹ Dừng</button>
+    <button class="live" id="btnPrev" disabled>⏮ Câu trước</button>
+    <button class="live" id="btnReplay" disabled>🔁 Nghe lại</button>
+    <button class="live" id="btnClip" disabled style="color:var(--blue)">🔂 Nghe lại đoạn</button>
+    <button class="live" id="btnNext" disabled>⏭ Câu tiếp</button>
+    <button class="stop live" id="btnStop" disabled>⏹ Dừng</button>
   </div>
-  <div class="keys">Phím tắt: Space tạm dừng/tiếp tục · ← câu trước · → câu tiếp · R nghe lại câu · ↑ nghe lại đoạn · Esc dừng</div>
+  <div class="keys live">Phím tắt: Space tạm dừng/tiếp tục · ← câu trước · → câu tiếp · R nghe lại câu · ↑ nghe lại đoạn · Esc dừng</div>
 
   <fieldset>
     <legend>Cấu hình</legend>

@@ -1,0 +1,102 @@
+/* Theme dùng chung cho mọi trang. Token lấy theo standard.html (dark), thêm bản light.
+   theme.js đặt data-theme="dark|light" trên <html> trước khi vẽ trang. */
+:root {
+  color-scheme: dark;
+  --bg: #090a0f;
+  --surface: #11141b;
+  --surface-elevated: #161a23;
+  --surface-hover: #1c212c;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-subtle: rgba(255, 255, 255, 0.04);
+  --border-focus: rgba(226, 183, 114, 0.4);
+  --text: #f0f2f5;
+  --text-strong: #ffffff;
+  --text-muted: #8b92a0;
+  --text-dim: #545b69;
+  --accent-gold: #e2b772;
+  --accent-gold-soft: rgba(226, 183, 114, 0.12);
+  --accent-cyan: #38bdf8;
+  --accent-emerald: #10b981;
+  --accent-rose: #f43f5e;
+  --accent-amber: #fbbf24;
+  --ok: #34d399;   --ok-soft: rgba(52, 211, 153, 0.12);
+  --bad: #fb7185;  --bad-soft: rgba(244, 63, 94, 0.12);
+  --warn: #fbbf24; --warn-soft: rgba(251, 191, 36, 0.12);
+  --on-accent: #0b0d12;
+  --overlay-weak: rgba(255, 255, 255, 0.03);
+  --overlay: rgba(255, 255, 255, 0.08);
+  --overlay-strong: rgba(255, 255, 255, 0.14);
+  --backdrop: rgba(0, 0, 0, 0.6);
+  --font: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', Consolas, monospace;
+  --radius-xs: 3px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f6f5f1;
+  --surface: #ffffff;
+  --surface-elevated: #fbfaf7;
+  --surface-hover: #efede6;
+  --border: rgba(15, 23, 42, 0.13);
+  --border-subtle: rgba(15, 23, 42, 0.07);
+  --border-focus: rgba(138, 94, 16, 0.5);
+  --text: #1b1f27;
+  --text-strong: #0b0d12;
+  --text-muted: #566070;
+  --text-dim: #7d8594;
+  --accent-gold: #8a5e10;
+  --accent-gold-soft: rgba(138, 94, 16, 0.1);
+  --accent-cyan: #0369a1;
+  --accent-emerald: #047857;
+  --accent-rose: #be123c;
+  --accent-amber: #b45309;
+  --ok: #047857;   --ok-soft: rgba(4, 120, 87, 0.1);
+  --bad: #be123c;  --bad-soft: rgba(190, 18, 60, 0.08);
+  --warn: #a15c00; --warn-soft: rgba(180, 83, 9, 0.1);
+  --on-accent: #ffffff;
+  --overlay-weak: rgba(15, 23, 42, 0.025);
+  --overlay: rgba(15, 23, 42, 0.06);
+  --overlay-strong: rgba(15, 23, 42, 0.12);
+  --backdrop: rgba(15, 23, 42, 0.4);
+}
+
+/* ---- Tên cũ của quiz.html / quiz-visual.html -> token chung ---- */
+:root {
+  --card: var(--surface);
+  --ink: var(--text);
+  --muted: var(--text-muted);
+  --line: var(--border);
+  --accent: var(--accent-gold);
+  --accent-soft: var(--accent-gold-soft);
+}
+
+/* ---- Thanh trên cùng + nút đổi giao diện ---- */
+.topbar {
+  flex: none; display: flex; align-items: center; gap: 10px;
+  background: var(--surface); border-bottom: 1px solid var(--border-subtle);
+}
+.topbar > .bar { flex: 1; min-width: 0; border-bottom: 0; background: transparent; }
+.eyebrow {
+  font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--accent-gold);
+}
+.theme-toggle {
+  flex: none; display: inline-grid; place-items: center; width: 36px; height: 36px; margin-right: 12px;
+  font-size: 1.05rem; line-height: 1; cursor: pointer; color: var(--text-muted);
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-xs);
+  transition: color .15s, border-color .15s, background .15s;
+}
+.theme-toggle:hover { color: var(--accent-gold); border-color: var(--accent-gold); background: var(--surface-hover); }
+.theme-toggle:focus-visible, a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible {
+  outline: 2px solid var(--accent-gold); outline-offset: 2px;
+}
+.home-link {
+  flex: none; display: inline-grid; place-items: center; height: 36px; padding: 0 12px; margin-left: 12px;
+  font-size: 0.85rem; font-weight: 500; text-decoration: none; color: var(--text-muted);
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-xs);
+  transition: color .15s, border-color .15s, background .15s;
+}
+.home-link:hover { color: var(--accent-gold); border-color: var(--accent-gold); background: var(--surface-hover); }

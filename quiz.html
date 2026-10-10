@@ -7,22 +7,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="theme.css">
+<script src="theme.js"></script>
 <style>
-  :root {
-    --bg: #f3f5f9; --card: #ffffff; --ink: #172033; --muted: #5b6577; --line: #dde3ee;
-    --accent: #1f5fd6; --accent-soft: #e6eefc;
-    --ok: #137a43; --ok-soft: #e3f6ec;
-    --bad: #c42b1c; --bad-soft: #fdeceb;
-    --warn: #a15c00; --warn-soft: #fff3df;
-    --font: "Be Vietnam Pro", "Segoe UI", "Noto Sans", "Helvetica Neue", Arial, sans-serif;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #0f1420; --card: #181f2f; --ink: #eef1f7; --muted: #9aa5ba; --line: #2a3347;
-      --accent: #6c9bff; --accent-soft: #1e2b4a; --ok: #4ade94; --ok-soft: #12301f;
-      --bad: #ff6b5e; --bad-soft: #3a1815; --warn: #ffb347; --warn-soft: #3a2a10;
-    }
-  }
   * { box-sizing: border-box; }
   html, body { height: 100%; }
   body {
@@ -52,8 +39,7 @@
   .chip.plain { background: var(--bg); color: var(--muted); }
   /* Câu điểm liệt dùng màu hổ phách để không lẫn với viền đỏ = trả lời sai */
   .card.critical { box-shadow: inset 5px 0 0 var(--warn); border-color: var(--warn); }
-  .chip.critical { background: var(--warn); color: #fff; letter-spacing: .04em; text-transform: uppercase; }
-  @media (prefers-color-scheme: dark) { .chip.critical { color: #1a1204; } }
+  .chip.critical { background: var(--warn); color: var(--on-accent); letter-spacing: .04em; text-transform: uppercase; }
 
   .question {
     font-size: calc(clamp(1.15rem, min(1.1rem + 1.7vw, 0.3rem + 3.3dvh), 2.15rem) * var(--k, 1)); font-weight: 600; line-height: 1.4;
@@ -95,10 +81,10 @@
   .opt .mark { flex: none; font-weight: 700; font-size: 0.9em; }
   .opt.dim { opacity: .5; }
   .opt.is-correct { border-color: var(--ok); background: var(--ok-soft); font-weight: 600; opacity: 1; }
-  .opt.is-correct .num { background: var(--ok); border-color: var(--ok); color: #fff; }
+  .opt.is-correct .num { background: var(--ok); border-color: var(--ok); color: var(--on-accent); }
   .opt.is-correct .mark { color: var(--ok); }
   .opt.is-wrong { border-color: var(--bad); background: var(--bad-soft); opacity: 1; }
-  .opt.is-wrong .num { background: var(--bad); border-color: var(--bad); color: #fff; }
+  .opt.is-wrong .num { background: var(--bad); border-color: var(--bad); color: var(--on-accent); }
   .opt.is-wrong .mark { color: var(--bad); }
   .note { margin-top: clamp(8px, 1.6dvh, 14px); text-align: center; font-weight: 600; color: var(--muted); }
   .note.bad { color: var(--bad); } .note.ok { color: var(--ok); }
@@ -112,7 +98,7 @@
     font-weight: 600; font-size: 1rem; padding: 10px 20px; border-radius: 4px; min-width: 120px;
     border: 1px solid var(--line); background: var(--card); cursor: pointer;
   }
-  .nav button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .nav button.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
   .nav button.submit { border-color: var(--bad); color: var(--bad); }
   .nav button:disabled { opacity: .4; cursor: default; }
 
@@ -124,7 +110,7 @@
   .field select { padding: 10px; border: 1px solid var(--line); border-radius: 4px; background: var(--bg); font-weight: 400; }
   .check { display: flex; gap: 8px; align-items: center; margin-bottom: 20px; }
   .btn { padding: 12px 20px; border-radius: 4px; border: 1px solid var(--line); background: var(--card); font-weight: 600; cursor: pointer; width: 100%; margin-top: 8px; }
-  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
   .scores { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 18px 0; }
   .score { border: 1px solid var(--line); border-radius: 4px; padding: 14px 8px; text-align: center; background: var(--bg); }
   .score b { display: block; font-size: 2rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
@@ -145,10 +131,10 @@
   .wronglist .pr { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
   dialog { border: 1px solid var(--line); border-radius: 6px; background: var(--card); color: var(--ink); padding: 20px; max-width: min(560px, 92vw); }
-  dialog::backdrop { background: rgba(0, 0, 0, .45); }
+  dialog::backdrop { background: var(--backdrop); }
   dialog h2 { margin: 0 0 10px; font-size: 1.2rem; }
   /* Drawer bên phải: chọn câu + trạng thái đúng/sai */
-  #scrim { position: fixed; inset: 0; background: rgba(0, 0, 0, .35); z-index: 19; }
+  #scrim { position: fixed; inset: 0; background: var(--backdrop); z-index: 19; }
   #drawer {
     position: fixed; top: 0; right: 0; bottom: 0; width: min(360px, 92vw); z-index: 20;
     display: flex; flex-direction: column; background: var(--card); border-left: 1px solid var(--line);
@@ -179,7 +165,7 @@
   .dr-legend i.k { border: 0; border-radius: 50%; background: var(--warn); width: 8px; height: 8px; }
   .dlg-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 14px; }
   .dlg-actions button { padding: 9px 16px; border-radius: 4px; border: 1px solid var(--line); background: var(--card); font-weight: 600; cursor: pointer; }
-  .dlg-actions .primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .dlg-actions .primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
   @media (max-height: 640px) { .meta .plain { display: none; } .opt { padding-block: 6px; } .images img { max-height: 24dvh; } }
   @media (max-width: 640px) {
     .options { grid-template-columns: 1fr !important; }
@@ -192,7 +178,7 @@
 </style>
 </head>
 <body>
-<div class="bar" id="bar"></div>
+<div class="topbar"><a class="home-link" href="./">← Menu</a><div class="bar" id="bar"></div><button class="theme-toggle" data-theme-toggle type="button"></button></div>
 <main id="app"></main>
 <div class="nav" id="nav" hidden></div>
 <dialog id="dlg"></dialog>
