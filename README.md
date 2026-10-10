@@ -4,7 +4,7 @@ Bản dựng sẵn, chỉ gồm tài nguyên tĩnh (không có mã nguồn công
 
 - `index.html` – menu
 - `quiz.html` – quiz 600 câu · `quiz-visual.html` – quiz các câu cần xem hình (không có audio)
-- `flashcards.html`
+- `standard.html` – cẩm nang độ tuổi & tốc độ (audio trong `audio/standard/`)
 - `audio/` – trình nghe audio (mp3 trong `audio/mp3/`)
 
 Chạy thử local: `python -m http.server 8080` rồi mở http://localhost:8080/
