@@ -110,14 +110,17 @@ function setThink(text, color, progress) {
   if (progress !== undefined) $("progThink").value = progress;
 }
 
+const PLAY_IC = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+const PAUSE_IC = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>';
+
 function updateButtons() {
   const on = !!state.session;
   if (on) document.body.classList.add("started");
   for (const id of ["btnPrev", "btnReplay", "btnClip", "btnNext", "btnStop"]) $(id).disabled = !on;
   const play = $("btnPlay");
-  if (!on) { play.textContent = "▶ Bắt đầu học"; play.classList.remove("paused"); }
-  else if (state.paused) { play.textContent = "▶ Tiếp tục"; play.classList.remove("paused"); }
-  else { play.textContent = "⏸ Tạm dừng"; play.classList.add("paused"); }
+  if (!on) { play.innerHTML = PLAY_IC + "<span>Bắt đầu học</span>"; play.classList.remove("paused"); }
+  else if (state.paused) { play.innerHTML = PLAY_IC + "<span>Tiếp tục từ đầu câu</span>"; play.classList.remove("paused"); }
+  else { play.innerHTML = PAUSE_IC + "<span>Tạm dừng</span>"; play.classList.add("paused"); }
 }
 
 function resetOptions() {
@@ -317,7 +320,7 @@ function pause() {
   state.paused = true;
   state.audio.pause();
   setStatus("⏸ ĐÃ TẠM DỪNG", "var(--orange)");
-  setThink("Đã tạm dừng — nhấn Tiếp tục để nghe tiếp đoạn đang đọc.", "var(--orange)");
+  setThink("Đã tạm dừng — nhấn Tiếp tục để nghe lại câu từ đầu.", "var(--orange)");
   updateButtons();
 }
 
@@ -329,7 +332,7 @@ function resume() {
 
 function togglePlay() {
   if (!state.session) startSession();
-  else if (state.paused) resume();
+  else if (state.paused) nav("replay");
   else pause();
 }
 
