@@ -81,7 +81,7 @@
     display: flex; gap: 12px; align-items: center; text-align: left; width: 100%;
     padding: calc(clamp(8px, 1.8dvh, 14px) * var(--k, 1)) 16px;
     border: 2px solid var(--line); border-radius: 4px; background: var(--bg); cursor: pointer;
-    font-size: calc(clamp(1rem, min(1rem + 0.55vw, 0.35rem + 2.1dvh), 1.4rem) * var(--k, 1) * var(--ofs, 1)); line-height: 1.4;
+    font-size: calc(clamp(1.05rem, min(1rem + 0.55vw, 0.35rem + 2.1dvh), 1.4rem) * var(--k, 1) * var(--ofs, 1)); line-height: 1.4;
     transition: opacity .15s, border-color .15s, background .15s;
   }
   .opt:hover:not(.locked) { border-color: var(--accent); background: var(--accent-soft); }
@@ -306,7 +306,7 @@ function fitColumns(c) {
     while (cols > 1 && wraps()) { cols = cols === 4 ? 2 : 1; box.style.setProperty("--cols", cols); }
   } else if (cols === 2) {
     let f = 1;
-    while (wraps() && f > 0.8) { f = +(f - 0.04).toFixed(2); box.style.setProperty("--ofs", f); }
+    while (wraps() && f > 0.92) { f = +(f - 0.04).toFixed(2); box.style.setProperty("--ofs", f); }
     if (wraps()) { box.style.setProperty("--ofs", 1); box.style.setProperty("--cols", 1); }
   }
 }
@@ -317,7 +317,7 @@ function fit() {
   const app = $("#app"), cs = getComputedStyle(app);
   const room = app.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
   let k = 1;
-  while (c.offsetHeight > room && k > 0.6) { k = +(k - 0.04).toFixed(2); c.style.setProperty("--k", k); }
+  while (c.offsetHeight > room && k > 0.88) { k = +(k - 0.04).toFixed(2); c.style.setProperty("--k", k); }
 }
 window.addEventListener("resize", fit);
 if (document.fonts) document.fonts.ready.then(fit);
