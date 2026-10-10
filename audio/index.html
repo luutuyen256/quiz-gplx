@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../theme.css">
 <script src="../theme.js"></script>
+<script src="../moto-only.js"></script>
 <style>
   :root {
     --bg-main: var(--bg); --bg-dark: var(--surface-elevated); --bg-header: var(--surface); --bg-card: var(--surface);
@@ -123,6 +124,7 @@
           <option value="35">35 câu</option><option value="50">50 câu</option><option value="100">100 câu</option>
         </select>
       </label>
+      <label><input type="checkbox" id="cfgNoMoto"> Bỏ câu chỉ dành cho xe mô tô</label>
       <span id="hint"></span>
     </div>
     <div class="row muted" style="margin-top:6px"><span id="voiceStatus"></span></div>

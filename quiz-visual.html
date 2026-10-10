@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="theme.css">
 <script src="theme.js"></script>
+<script src="moto-only.js"></script>
 <style>
   * { box-sizing: border-box; }
   html, body { height: 100%; }
@@ -331,6 +332,7 @@ function renderSetup() {
           <option value="0">Tất cả trong phạm vi</option>
         </select></label>
       <label class="check"><input type="checkbox" id="optShuffle" checked> Xáo trộn thứ tự câu hỏi</label>
+      <label class="check"><input type="checkbox" id="optNoMoto" ${skipMoto() ? "checked" : ""}> Bỏ câu chỉ dành cho xe mô tô (${QUESTIONS.filter((q) => MOTO_ONLY.has(q.id)).length} câu)</label>
       <button class="btn ${S && !S.submitted ? "" : "primary"}" data-act="start">Bắt đầu bài mới</button>
     </div>`;
 }
@@ -513,6 +515,7 @@ document.addEventListener("click", (e) => {
     const doStart = () => {
       const scope = $("#optScope").value, count = +$("#optCount").value;
       let pool = QUESTIONS.filter((q) => scope === "all" || (scope === "critical" ? q.critical : q.chapter === scope));
+      if ($("#optNoMoto").checked) pool = pool.filter((q) => !MOTO_ONLY.has(q.id));
       if ($("#optShuffle").checked) shuffle(pool);
       if (count) pool = pool.slice(0, count);
       startQuiz(pool.map((q) => q.id));
@@ -546,6 +549,7 @@ document.addEventListener("click", (e) => {
 document.addEventListener("change", (e) => {
   if (e.target.id === "auto") { S.auto = e.target.checked; save(); }
   else if (e.target.id === "sound") { S.sound = e.target.checked; save(); }
+  else if (e.target.id === "optNoMoto") setSkipMoto(e.target.checked);
 });
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && drawerOpen) { setDrawer(false); return; }

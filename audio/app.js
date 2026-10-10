@@ -84,7 +84,7 @@ function updateVoiceStats() {
 }
 
 function buildSessionList() {
-  let items = state.questions.filter(isReady);
+  let items = state.questions.filter((q) => isReady(q) && !(state.cfg.noMoto && MOTO_ONLY.has(q.id)));
   {
     for (let i = items.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -377,16 +377,18 @@ function replayClip() {
 /* ---------------------------------------------------------------- config */
 
 function readConfig() {
-  const prev = JSON.stringify([state.cfg.limit]);
+  const prev = JSON.stringify([state.cfg.limit, state.cfg.noMoto]);
   state.cfg = {
     autoloop: true,
     shuffle: true,
     ready: true,
     think: parseFloat($("cfgThink").value) || 3.0,
     limit: parseInt($("cfgLimit").value, 10) || 0,
+    noMoto: $("cfgNoMoto").checked,
   };
+  setSkipMoto(state.cfg.noMoto);
   try { localStorage.setItem(SETTINGS_KEY, JSON.stringify(state.cfg)); } catch (e) { /* bo qua */ }
-  const changed = prev !== JSON.stringify([state.cfg.limit]);
+  const changed = prev !== JSON.stringify([state.cfg.limit, state.cfg.noMoto]);
   $("hint").textContent = state.session && changed ? "↻ Áp dụng từ phiên sau" : "";
 }
 
@@ -395,7 +397,8 @@ function initConfig() {
   Object.assign(state.cfg, { autoloop: true, shuffle: true, ready: true });
   $("cfgThink").value = state.cfg.think.toFixed(1);
   $("cfgLimit").value = String(state.cfg.limit);
-  for (const id of ["cfgThink", "cfgLimit"]) {
+  $("cfgNoMoto").checked = skipMoto();
+  for (const id of ["cfgThink", "cfgLimit", "cfgNoMoto"]) {
     $(id).addEventListener("change", readConfig);
   }
 }
