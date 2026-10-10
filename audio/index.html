@@ -105,11 +105,6 @@
   <fieldset>
     <legend>Cấu hình</legend>
     <div class="row">
-      <label><input type="checkbox" id="cfgAutoloop"> 🔁 Tự lặp phiên mới khi hết câu</label>
-      <label><input type="checkbox" id="cfgShuffle"> 🔀 Trộn ngẫu nhiên</label>
-      <label><input type="checkbox" id="cfgReady"> 🎙 Chỉ câu đã có audio</label>
-    </div>
-    <div class="row" style="margin-top:6px">
       <label>Thời gian suy nghĩ:
         <select id="cfgThink"><option>2.0</option><option>3.0</option><option>4.0</option><option>5.0</option><option>7.0</option></select> s
       </label>
@@ -121,10 +116,7 @@
       </label>
       <span id="hint"></span>
     </div>
-    <div class="row muted" style="margin-top:6px">
-      <span id="voiceStatus">Đang tải dữ liệu…</span>
-      <progress id="progVoice" max="100" value="0" style="max-width:160px"></progress>
-    </div>
+    <div class="row muted" style="margin-top:6px"><span id="voiceStatus"></span></div>
   </fieldset>
 </main>
 

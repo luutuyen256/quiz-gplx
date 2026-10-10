@@ -80,17 +80,12 @@ function clipUrl(qid, name) {
 }
 
 function updateVoiceStats() {
-  const ready = state.questions.filter(isReady).length;
-  const total = state.questions.length;
-  const pct = total ? (ready / total) * 100 : 0;
-  $("voiceStatus").textContent = `🎙 Audio đã sẵn sàng: ${ready}/${total} câu (${pct.toFixed(1)}%)`;
-  $("progVoice").value = pct;
-  return ready;
+  return state.questions.filter(isReady).length;
 }
 
 function buildSessionList() {
-  let items = state.cfg.ready ? state.questions.filter(isReady) : [...state.questions];
-  if (state.cfg.shuffle) {
+  let items = state.questions.filter(isReady);
+  {
     for (let i = items.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [items[i], items[j]] = [items[j], items[i]];
@@ -305,8 +300,8 @@ async function sessionLoop(sess) {
 
 function startSession() {
   readConfig();
-  if (state.cfg.ready && updateVoiceStats() === 0) {
-    alert("Chưa có câu nào có đủ file audio.\nHãy tạo voice hoặc bỏ chọn “Chỉ câu đã có audio”.");
+  if (updateVoiceStats() === 0) {
+    alert("Chưa có câu nào có đủ file audio.\nHãy tạo voice trước.");
     return;
   }
   const sess = { token: ++state.token, stopped: false, nav: null, clipReplay: false, lastClip: null };
@@ -378,27 +373,25 @@ function replayClip() {
 /* ---------------------------------------------------------------- config */
 
 function readConfig() {
-  const prev = JSON.stringify([state.cfg.shuffle, state.cfg.ready, state.cfg.limit]);
+  const prev = JSON.stringify([state.cfg.limit]);
   state.cfg = {
-    autoloop: $("cfgAutoloop").checked,
-    shuffle: $("cfgShuffle").checked,
-    ready: $("cfgReady").checked,
+    autoloop: true,
+    shuffle: true,
+    ready: true,
     think: parseFloat($("cfgThink").value) || 3.0,
     limit: parseInt($("cfgLimit").value, 10) || 0,
   };
   try { localStorage.setItem(SETTINGS_KEY, JSON.stringify(state.cfg)); } catch (e) { /* bo qua */ }
-  const changed = prev !== JSON.stringify([state.cfg.shuffle, state.cfg.ready, state.cfg.limit]);
+  const changed = prev !== JSON.stringify([state.cfg.limit]);
   $("hint").textContent = state.session && changed ? "↻ Áp dụng từ phiên sau" : "";
 }
 
 function initConfig() {
   try { Object.assign(state.cfg, JSON.parse(localStorage.getItem(SETTINGS_KEY) || "{}")); } catch (e) { /* mac dinh */ }
-  $("cfgAutoloop").checked = state.cfg.autoloop;
-  $("cfgShuffle").checked = state.cfg.shuffle;
-  $("cfgReady").checked = state.cfg.ready;
+  Object.assign(state.cfg, { autoloop: true, shuffle: true, ready: true });
   $("cfgThink").value = state.cfg.think.toFixed(1);
   $("cfgLimit").value = String(state.cfg.limit);
-  for (const id of ["cfgAutoloop", "cfgShuffle", "cfgReady", "cfgThink", "cfgLimit"]) {
+  for (const id of ["cfgThink", "cfgLimit"]) {
     $(id).addEventListener("change", readConfig);
   }
 }
