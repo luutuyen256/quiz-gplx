@@ -42,6 +42,8 @@
   .question-copy { min-width: 0; }
   .question-copy p { margin: 0; line-height: 1.45; font-size: .92rem; }
   .question-copy small { display: block; margin-top: 6px; color: var(--text-muted); font-size: .74rem; }
+  .result-images { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 9px; }
+  .result-images img { width: min(100%, 150px); max-height: 110px; object-fit: contain; border: 1px solid var(--border); border-radius: 3px; background: #fff; padding: 3px; }
   .critical-badge { display: inline-block; margin-left: 6px; padding: 2px 5px; border-radius: 3px; background: var(--warn-soft); color: var(--warn); font-size: .68rem; font-weight: 700; }
   .add-btn, .primary-btn, .ghost-btn, .danger-btn { border: 1px solid var(--border); border-radius: var(--radius-xs); padding: 9px 12px; background: var(--surface); cursor: pointer; font-weight: 600; white-space: nowrap; }
   .add-btn { color: var(--accent-gold); }
@@ -181,11 +183,12 @@ function matches(q) {
 }
 function renderResults() {
   const all = QUESTIONS.filter(matches);
-  const shown = query.trim() || chapter !== "all" ? all : all.slice(0, 30);
-  $("#resultsMeta").textContent = query.trim() || chapter !== "all" ? `${all.length} kết quả` : `Hiển thị ${shown.length}/${all.length} câu — hãy tìm theo từ khóa để lọc nhanh hơn`;
+  const shown = all;
+  $("#resultsMeta").textContent = query.trim() || chapter !== "all" ? `${all.length} kết quả` : `Hiển thị toàn bộ ${all.length} câu — bạn có thể đọc câu hỏi và xem hình ngay trong danh sách`;
   $("#results").innerHTML = shown.length ? shown.map((q) => {
     const added = selectedIds.includes(q.id);
-    return `<article class="question-result"><span class="question-no">Câu ${q.id}</span><div class="question-copy"><p>${esc(q.prompt)}${q.critical ? '<span class="critical-badge">CÂU LIỆT</span>' : ""}</p><small>${CHAPTERS[q.chapter] || q.chapter} · ${q.options.length} lựa chọn</small></div><button class="add-btn" type="button" data-action="toggle-add" data-id="${q.id}" aria-pressed="${added}" ${added ? "disabled" : ""}>${added ? "✓ Đã thêm" : "+ Thêm"}</button></article>`;
+    const images = q.images?.length ? `<div class="result-images">${q.images.map((image) => `<img loading="lazy" src="${esc(image.file)}" alt="Hình minh họa câu ${q.id}">`).join("")}</div>` : "";
+    return `<article class="question-result"><span class="question-no">Câu ${q.id}</span><div class="question-copy"><p>${esc(q.prompt)}${q.critical ? '<span class="critical-badge">CÂU LIỆT</span>' : ""}</p><small>${CHAPTERS[q.chapter] || q.chapter} · ${q.options.length} lựa chọn</small>${images}</div><button class="add-btn" type="button" data-action="toggle-add" data-id="${q.id}" aria-pressed="${added}" ${added ? "disabled" : ""}>${added ? "✓ Đã thêm" : "+ Thêm"}</button></article>`;
   }).join("") : '<div class="empty-state"><strong>Không tìm thấy câu phù hợp</strong>Thử từ khóa khác hoặc đổi bộ lọc.</div>';
 }
 function renderSelection() {
