@@ -1,0 +1,114 @@
+{
+  "total_duration": 452.78,
+  "master_mp3": "audio/confusable/tong_hop_confusable.mp3",
+  "sections": [
+    {
+      "id": "c_intro",
+      "title": "Giới thiệu chuyên đề Dễ nhầm lẫn",
+      "dom_id": "topbar",
+      "start": 0.0,
+      "end": 11.76,
+      "duration": 11.76,
+      "mp3": "audio/confusable/c_intro.mp3"
+    },
+    {
+      "id": "c_dung_do",
+      "title": "1. Dừng xe và Đỗ xe",
+      "dom_id": "dung-do",
+      "start": 12.46,
+      "end": 53.28,
+      "duration": 40.82,
+      "mp3": "audio/confusable/c_dung_do.mp3"
+    },
+    {
+      "id": "c_khai_niem_nguoi",
+      "title": "2. Khái niệm về Người trong luật",
+      "dom_id": "khai-niem-nguoi",
+      "start": 53.98,
+      "end": 97.38,
+      "duration": 43.4,
+      "mp3": "audio/confusable/c_khai_niem_nguoi.mp3"
+    },
+    {
+      "id": "c_co_gioi_tho_so",
+      "title": "3. Xe cơ giới và Xe thô sơ",
+      "dom_id": "co-gioi-tho-so",
+      "start": 98.08,
+      "end": 131.59,
+      "duration": 33.51,
+      "mp3": "audio/confusable/c_co_gioi_tho_so.mp3"
+    },
+    {
+      "id": "c_con_ma_tuy",
+      "title": "4. Nồng độ cồn – Ma túy – Rượu bia",
+      "dom_id": "con-ma-tuy",
+      "start": 132.29,
+      "end": 168.72,
+      "duration": 36.43,
+      "mp3": "audio/confusable/c_con_ma_tuy.mp3"
+    },
+    {
+      "id": "c_nhuong_duong",
+      "title": "5. Nhường đường tại nơi giao nhau",
+      "dom_id": "nhuong-duong",
+      "start": 169.42,
+      "end": 202.06,
+      "duration": 32.64,
+      "mp3": "audio/confusable/c_nhuong_duong.mp3"
+    },
+    {
+      "id": "c_cam_theo_hanh-vi",
+      "title": "6. Nơi bị cấm: Quay đầu, Lùi xe, Vượt",
+      "dom_id": "cam-theo-hanh-vi",
+      "start": 202.76,
+      "end": 249.74,
+      "duration": 46.98,
+      "mp3": "audio/confusable/c_cam_theo_hanh-vi.mp3"
+    },
+    {
+      "id": "c_diem_gplx",
+      "title": "7. Điểm giấy phép lái xe: Phục hồi",
+      "dom_id": "diem-gplx",
+      "start": 250.44,
+      "end": 289.13,
+      "duration": 38.69,
+      "mp3": "audio/confusable/c_diem_gplx.mp3"
+    },
+    {
+      "id": "c_bien_chan_le",
+      "title": "8. Biển cấm đỗ xe ngày chẵn, ngày lẻ",
+      "dom_id": "bien-chan-le",
+      "start": 289.83,
+      "end": 326.07,
+      "duration": 36.24,
+      "mp3": "audio/confusable/c_bien_chan_le.mp3"
+    },
+    {
+      "id": "c_bien_soc_chuong_ngai",
+      "title": "9. Biển sọc vằn tránh chướng ngại vật",
+      "dom_id": "bien-soc-chuong-ngai",
+      "start": 326.77,
+      "end": 364.48,
+      "duration": 37.71,
+      "mp3": "audio/confusable/c_bien_soc_chuong_ngai.mp3"
+    },
+    {
+      "id": "c_bien_duong_hep",
+      "title": "10. Biển đường hẹp: Hai chiều, Nhường đường, Được ưu tiên",
+      "dom_id": "bien-duong-hep",
+      "start": 365.18,
+      "end": 412.39,
+      "duration": 47.21,
+      "mp3": "audio/confusable/c_bien_duong_hep.mp3"
+    },
+    {
+      "id": "c_ca_hai_y",
+      "title": "11. Mẹo làm bài: Khi nào Cả hai ý trên là đáp án",
+      "dom_id": "ca-hai-y",
+      "start": 413.09,
+      "end": 452.78,
+      "duration": 39.69,
+      "mp3": "audio/confusable/c_ca_hai_y.mp3"
+    }
+  ]
+}

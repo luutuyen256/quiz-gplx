@@ -1,0 +1,78 @@
+{
+  "total_duration": 434.49,
+  "master_mp3": "audio/standard/tong_hop_tuoi_toc_do.mp3",
+  "sections": [
+    {
+      "id": "part_1_intro",
+      "title": "Giới thiệu chung",
+      "dom_id": "sec-lead",
+      "start": 0.0,
+      "end": 14.81,
+      "duration": 14.81,
+      "mp3": "audio/standard/part_1_intro.mp3"
+    },
+    {
+      "id": "part_2_tuoi_lai_xe",
+      "title": "I. Độ tuổi người lái xe",
+      "dom_id": "sec-tuoi",
+      "start": 15.51,
+      "end": 75.34,
+      "duration": 59.83,
+      "mp3": "audio/standard/part_2_tuoi_lai_xe.mp3"
+    },
+    {
+      "id": "part_2_hang_bang",
+      "title": "II. Phân hạng GPLX & Điểm số",
+      "dom_id": "sec-hang-bang",
+      "start": 76.04,
+      "end": 186.08,
+      "duration": 110.04,
+      "mp3": "audio/standard/part_2_hang_bang.mp3"
+    },
+    {
+      "id": "part_3_tuoi_tre_em",
+      "title": "III. Quy định trẻ em",
+      "dom_id": "sec-tre-em",
+      "start": 186.78,
+      "end": 220.36,
+      "duration": 33.58,
+      "mp3": "audio/standard/part_3_tuoi_tre_em.mp3"
+    },
+    {
+      "id": "part_4_toc_do_do_thi",
+      "title": "IV-A. Tốc độ đô thị",
+      "dom_id": "sec-toc-do",
+      "start": 221.06,
+      "end": 262.57,
+      "duration": 41.51,
+      "mp3": "audio/standard/part_4_toc_do_do_thi.mp3"
+    },
+    {
+      "id": "part_5_toc_do_ngoai_do_thi",
+      "title": "IV-B. Tốc độ ngoài đô thị & Mẹo",
+      "dom_id": "sec-toc-do",
+      "start": 263.27,
+      "end": 332.46,
+      "duration": 69.19,
+      "mp3": "audio/standard/part_5_toc_do_ngoai_do_thi.mp3"
+    },
+    {
+      "id": "part_6_khoang_cach_an_toan",
+      "title": "V. Khoảng cách an toàn",
+      "dom_id": "sec-khoang-cach",
+      "start": 333.16,
+      "end": 388.59,
+      "duration": 55.43,
+      "mp3": "audio/standard/part_6_khoang_cach_an_toan.mp3"
+    },
+    {
+      "id": "part_7_bien_bao_sa_hinh",
+      "title": "VI. Biển báo & Sa hình",
+      "dom_id": "sec-bien-bao",
+      "start": 389.29,
+      "end": 434.49,
+      "duration": 45.2,
+      "mp3": "audio/standard/part_7_bien_bao_sa_hinh.mp3"
+    }
+  ]
+}

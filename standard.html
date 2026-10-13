@@ -184,6 +184,50 @@
       color: var(--accent-gold);
     }
 
+    .btn-audio-listen.is-playing-now {
+      border-color: var(--accent-gold);
+      background: rgba(217, 119, 6, 0.16);
+      color: var(--accent-gold);
+      box-shadow: 0 0 12px rgba(217, 119, 6, 0.25);
+    }
+
+    /* Active Reading Highlight & Focus Glow */
+    .editorial-section {
+      transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    }
+
+    .editorial-section.is-active-reading {
+      border-color: var(--accent-gold) !important;
+      box-shadow: 0 0 0 2px rgba(217, 119, 6, 0.35), 0 12px 32px rgba(217, 119, 6, 0.12) !important;
+      background: rgba(217, 119, 6, 0.025);
+      border-radius: var(--radius-sm);
+    }
+
+    .editorial-section.is-active-reading .section-index {
+      color: var(--accent-gold) !important;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .editorial-section.is-active-reading .section-index::after {
+      content: 'ĐANG ĐỌC';
+      font-size: 0.65rem;
+      padding: 1px 6px;
+      border-radius: 4px;
+      background: var(--accent-gold);
+      color: #000;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      animation: badgePulse 1.6s infinite ease-in-out;
+    }
+
+    @keyframes badgePulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(0.96); }
+    }
+
     .btn-audio-listen svg {
       width: 12px;
       height: 12px;
@@ -847,7 +891,7 @@
           <div class="section-index">Mục I</div>
           <h2 class="section-name">Quy định về độ tuổi người lái xe & Tuổi tối đa</h2>
         </div>
-        <button class="btn-audio-listen" onclick="playSectionAudio('audio/standard/part_2_tuoi_lai_xe.wav', 'I. Độ tuổi người lái xe')">
+        <button class="btn-audio-listen" onclick="playSectionAudio('audio/standard/part_2_tuoi_lai_xe.mp3', 'I. Độ tuổi người lái xe', 'sec-tuoi')">
           <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
           <span>Nghe bản đọc</span>
         </button>
@@ -982,6 +1026,10 @@
           <div class="section-index">Mục II</div>
           <h2 class="section-name">Phân hạng Giấy phép lái xe, Điểm số &amp; Quy định phương tiện (Luật 2024)</h2>
         </div>
+        <button class="btn-audio-listen" onclick="playSectionAudio('audio/standard/part_2_hang_bang.mp3', 'II. Phân hạng GPLX & Điểm số', 'sec-hang-bang')">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <span>Nghe bản đọc</span>
+        </button>
       </div>
 
       <div class="cards-matrix">
@@ -1138,7 +1186,7 @@
           <div class="section-index">Mục III</div>
           <h2 class="section-name">Các mốc tuổi trẻ em &amp; Quy định bảo vệ an toàn</h2>
         </div>
-        <button class="btn-audio-listen" onclick="playSectionAudio('audio/standard/part_3_tuoi_tre_em.wav', 'II. Quy định trẻ em')">
+        <button class="btn-audio-listen" onclick="playSectionAudio('audio/standard/part_3_tuoi_tre_em.mp3', 'III. Quy định trẻ em', 'sec-tre-em')">
           <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
           <span>Nghe bản đọc</span>
         </button>
@@ -1193,19 +1241,19 @@
       </div>
     </section>
 
-    <!-- MỤC 3: TỐC ĐỘ TỐI ĐA -->
+    <!-- MỤC IV: TỐC ĐỘ TỐI ĐA -->
     <section id="sec-toc-do" class="editorial-section">
       <div class="section-title-bar">
         <div>
-          <div class="section-index">Mục III</div>
+          <div class="section-index">Mục IV</div>
           <h2 class="section-name">Quy định tốc độ khai thác tối đa trên đường bộ</h2>
         </div>
         <div style="display: flex; gap: 8px;">
-          <button class="btn-audio-listen" onclick="playSectionAudio('audio/standard/part_4_toc_do_do_thi.wav', 'III-A. Tốc độ đô thị')">
+          <button class="btn-audio-listen" onclick="playSectionAudio('audio/standard/part_4_toc_do_do_thi.mp3', 'IV-A. Tốc độ đô thị', 'sec-toc-do')">
             <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
             <span>Đô thị</span>
           </button>
-          <button class="btn-audio-listen" onclick="playSectionAudio('audio/standard/part_5_toc_do_ngoai_do_thi.wav', 'III-B. Tốc độ ngoài đô thị & Mẹo')">
+          <button class="btn-audio-listen" onclick="playSectionAudio('audio/standard/part_5_toc_do_ngoai_do_thi.mp3', 'IV-B. Tốc độ ngoài đô thị & Mẹo', 'sec-toc-do')">
             <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
             <span>Ngoài đô thị</span>
           </button>
@@ -1339,14 +1387,14 @@
       </div>
     </section>
 
-    <!-- MỤC 4: KHOẢNG CÁCH AN TOÀN -->
+    <!-- MỤC V: KHOẢNG CÁCH AN TOÀN -->
     <section id="sec-khoang-cach" class="editorial-section">
       <div class="section-title-bar">
         <div>
-          <div class="section-index">Mục IV</div>
+          <div class="section-index">Mục V</div>
           <h2 class="section-name">Khoảng cách an toàn tối thiểu giữa hai xe</h2>
         </div>
-        <button class="btn-audio-listen" onclick="playSectionAudio('audio/standard/part_6_khoang_cach_an_toan.wav', 'IV. Khoảng cách an toàn')">
+        <button class="btn-audio-listen" onclick="playSectionAudio('audio/standard/part_6_khoang_cach_an_toan.mp3', 'V. Khoảng cách an toàn', 'sec-khoang-cach')">
           <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
           <span>Nghe bản đọc</span>
         </button>
@@ -1429,7 +1477,7 @@
           <div class="section-index">Mục VI</div>
           <h2 class="section-name">Biển báo hiệu tốc độ &amp; Nguyên tắc giải câu hỏi sa hình</h2>
         </div>
-        <button class="btn-audio-listen" onclick="playSectionAudio('audio/standard/part_7_bien_bao_sa_hinh.wav', 'V. Biển báo & Sa hình')">
+        <button class="btn-audio-listen" onclick="playSectionAudio('audio/standard/part_7_bien_bao_sa_hinh.mp3', 'VI. Biển báo & Sa hình', 'sec-bien-bao')">
           <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
           <span>Nghe bản đọc</span>
         </button>
@@ -1574,7 +1622,7 @@
     </div>
   </div>
 
-  <audio id="global-audio" src="audio/standard/tong_hop_tuoi_toc_do.wav" preload="metadata"></audio>
+  <audio id="global-audio" src="audio/standard/tong_hop_tuoi_toc_do.mp3" preload="metadata"></audio>
 
   <script>
     const QUESTION_BANK = [
@@ -3420,11 +3468,49 @@
       }
     }
 
+    // Cue points cho file audio tổng hợp
+    const MASTER_TIMELINE = [
+      { id: "sec-lead", start: 0, end: 14.8, title: "Giới thiệu chung" },
+      { id: "sec-tuoi", start: 15.5, end: 75.3, title: "I. Độ tuổi người lái xe" },
+      { id: "sec-hang-bang", start: 76.0, end: 186.1, title: "II. Phân hạng GPLX & Điểm số" },
+      { id: "sec-tre-em", start: 186.8, end: 220.4, title: "III. Quy định trẻ em" },
+      { id: "sec-toc-do", start: 221.1, end: 332.5, title: "IV. Tốc độ tối đa" },
+      { id: "sec-khoang-cach", start: 333.2, end: 388.6, title: "V. Khoảng cách an toàn" },
+      { id: "sec-bien-bao", start: 389.3, end: 434.5, title: "VI. Biển báo & Sa hình" }
+    ];
+
+    let activeSectionDomId = null;
+    let isMasterPlaying = false;
+
+    function highlightSection(domId, shouldScroll = true) {
+      if (activeSectionDomId === domId && !shouldScroll) return;
+      activeSectionDomId = domId;
+
+      document.querySelectorAll('.editorial-section').forEach(sec => {
+        sec.classList.remove('is-active-reading');
+      });
+
+      if (!domId || domId === 'sec-lead') return;
+
+      const el = document.getElementById(domId);
+      if (el) {
+        el.classList.add('is-active-reading');
+        if (shouldScroll) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+    }
+
     function toggleMasterPlay() {
       if (audio.paused) {
+        if (!audio.src.includes('tong_hop_tuoi_toc_do')) {
+          audio.src = 'audio/standard/tong_hop_tuoi_toc_do.mp3';
+          trackTitle.textContent = 'Toàn bộ cẩm nang quy chuẩn';
+        }
+        isMasterPlaying = true;
         audio.play().then(() => {
           updatePlayIcon(true);
-          statusText.textContent = 'ĐANG PHÁT';
+          statusText.textContent = 'ĐANG PHÁT TỔNG HỢP';
         }).catch(err => console.error(err));
       } else {
         audio.pause();
@@ -3433,13 +3519,17 @@
       }
     }
 
-    function playSectionAudio(src, title) {
+    function playSectionAudio(src, title, domId) {
+      isMasterPlaying = false;
       audio.src = src;
       trackTitle.textContent = title;
       audio.play().then(() => {
         updatePlayIcon(true);
         statusText.textContent = 'ĐANG PHÁT MỤC';
-      });
+        if (domId) {
+          highlightSection(domId, true);
+        }
+      }).catch(err => console.error(err));
     }
 
     audio.addEventListener('timeupdate', () => {
@@ -3447,6 +3537,16 @@
       if (audio.duration) {
         seekSlider.value = (audio.currentTime / audio.duration) * 100;
         timeTotal.textContent = formatTime(audio.duration);
+      }
+
+      // Khi phát file tổng hợp, tự động theo dõi cue point để highlight & auto scroll
+      if (isMasterPlaying && audio.src.includes('tong_hop_tuoi_toc_do')) {
+        const curr = audio.currentTime;
+        const currentCue = MASTER_TIMELINE.find(c => curr >= c.start && curr < c.end);
+        if (currentCue && currentCue.id !== activeSectionDomId) {
+          trackTitle.textContent = currentCue.title;
+          highlightSection(currentCue.id, true);
+        }
       }
     });
 
@@ -3457,6 +3557,7 @@
     audio.addEventListener('ended', () => {
       updatePlayIcon(false);
       statusText.textContent = 'HOÀN TẤT';
+      highlightSection(null, false);
     });
 
     function seekAudio(percent) {

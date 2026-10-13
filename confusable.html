@@ -46,6 +46,198 @@ mark{background:var(--accent-gold-soft);color:var(--accent-gold);padding:0 4px;b
 .note{margin-top:30px;font-size:.82rem;color:var(--text-muted);border-top:1px solid var(--border);padding-top:16px}
 .hidden{display:none}
 @media(max-width:640px){.card{padding:16px}.wrap{padding-top:24px}}
+
+/* Docked Audio Player & Audio Buttons */
+body { padding-bottom: 96px; }
+
+.btn-audio-listen {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: var(--surface-elevated, var(--overlay-weak));
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+.btn-audio-listen:hover {
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
+}
+.btn-audio-listen svg {
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
+}
+.btn-audio-listen.is-playing-now {
+  border-color: var(--accent-gold);
+  background: rgba(217, 119, 6, 0.16);
+  color: var(--accent-gold);
+}
+
+/* Active Reading Highlight & Auto Scroll Focus */
+.card {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+.card.is-active-reading {
+  border-color: var(--accent-gold) !important;
+  box-shadow: 0 0 0 2px rgba(217, 119, 6, 0.4), 0 12px 32px rgba(217, 119, 6, 0.15) !important;
+  background: rgba(217, 119, 6, 0.025);
+  position: relative;
+}
+.card.is-active-reading .card-head h2 {
+  color: var(--accent-gold);
+}
+.card.is-active-reading .card-head h2::after {
+  content: 'ĐANG ĐỌC';
+  font-size: 0.62rem;
+  padding: 2px 6px;
+  margin-left: 8px;
+  border-radius: 4px;
+  background: var(--accent-gold);
+  color: #000;
+  font-weight: 700;
+  vertical-align: middle;
+  letter-spacing: 0.06em;
+  animation: badgePulse 1.6s infinite ease-in-out;
+}
+
+@keyframes badgePulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(0.96); }
+}
+
+/* Minimal Docked Audio Player */
+.docked-player {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(24, 24, 37, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--border);
+  padding: 12px 24px;
+  z-index: 1000;
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.4);
+}
+.docked-player-inner {
+  max-width: 980px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.dock-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 220px;
+}
+.btn-player-play {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--accent-gold);
+  color: #000;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+  flex-shrink: 0;
+}
+.btn-player-play:hover {
+  transform: scale(1.05);
+}
+.btn-player-play svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+.dock-meta {
+  display: flex;
+  flex-direction: column;
+}
+.dock-track-title {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-strong);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 260px;
+}
+.dock-status-text {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--accent-gold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.dock-center {
+  flex: 1;
+  max-width: 420px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.mono-time {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  width: 36px;
+}
+.dock-seek {
+  flex: 1;
+  -webkit-appearance: none;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  outline: none;
+}
+.dock-seek::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent-gold);
+  cursor: pointer;
+}
+.dock-speeds {
+  display: flex;
+  gap: 4px;
+}
+.speed-pill {
+  padding: 4px 8px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+}
+.speed-pill.active {
+  background: var(--accent-gold);
+  color: #000;
+  border-color: var(--accent-gold);
+  font-weight: 600;
+}
+@media (max-width: 768px) {
+  .dock-track-title { max-width: 180px; }
+  .dock-center { order: 3; flex-basis: 100%; max-width: 100%; margin-top: 4px; }
+}
+
 </style>
 </head>
 <body>
@@ -76,15 +268,42 @@ mark{background:var(--accent-gold-soft);color:var(--accent-gold);padding:0 4px;b
 <a href="#bien-soc-chuong-ngai">Biển sọc vằn</a>
 <a href="#bien-duong-hep">Biển đường hẹp</a>
 <a href="#ca-hai-y">Mẹo &quot;cả hai ý&quot;</a></nav>
-  <div id="cards"><section class="card" id="dung-do" data-s="dừng xe và đỗ xe khác nhau ở **thời gian** và việc **được rời xe hay không**. câu 14 (dừng): phương án &quot;không giới hạn thời gian&quot; là sai. câu 15 (đỗ): phương án &quot;có giới hạn thời gian&quot; là sai."><div class="card-head"><h2>Dừng xe và Đỗ xe</h2><div class="tags"><span class="tag">Khái niệm</span><span class="tag">Số liệu</span><span class="src src-L" title="Luật TTATGTĐB 36/2024/QH15 (hiệu lực 01/01/2025)">Luật</span></div></div><p class="intro">Khác nhau ở <mark>thời gian</mark> và việc <mark>được rời xe hay không</mark>.</p><div class="tbl-wrap"><table><thead><tr><th></th><th>Dừng xe</th><th>Đỗ xe</th></tr></thead><tbody><tr><td>Thời gian</td><td><mark>tạm thời</mark>, vừa đủ lên/xuống xe, xếp dỡ, kiểm tra kỹ thuật</td><td><mark>không giới hạn</mark> thời gian</td></tr><tr><td>Tắt máy / rời vị trí lái</td><td><mark>không</mark> tắt máy, <mark>không</mark> rời vị trí lái (trừ đóng mở cửa, xếp dỡ, kiểm tra – phải phanh đỗ)</td><td>chỉ rời xe <mark>sau khi đã phanh đỗ</mark> / biện pháp an toàn</td></tr><tr><td>Đường dốc</td><td>–</td><td><mark>đánh lái về phía lề đường, chèn bánh</mark></td></tr></tbody></table></div><div class="keys"><b>Từ khóa nhận dạng</b><ul><li><mark>sát lề, bánh xe gần nhất cách lề không quá</mark> → <mark>0,25 m</mark> (câu 60)</li><li><mark>đường phố hẹp, cách xe ô tô đỗ ngược chiều</mark> → tối thiểu <mark>20 m</mark> (câu 61)</li></ul></div><div class="traps"><b>Bẫy cần để ý</b><ul><li>Câu 14 (dừng): phương án "không giới hạn thời gian" là SAI. Câu 15 (đỗ): phương án "có giới hạn thời gian" là SAI.</li></ul></div><div class="foot"><span class="law">Căn cứ: Luật 36/2024 Điều 18 khoản 1, 2</span><span class="qids">Câu: <i>14</i>, <i>15</i>, <i>60</i>, <i>61</i></span></div></section>
-<section class="card" id="khai-niem-nguoi" data-s="người tham gia gt / điều khiển phương tiện / lái xe / điều khiển giao thông bốn cụm chỉ khác một vài chữ. hãy tìm **đối tượng đứng sau chữ &quot;người&quot;**. câu 6: phương án 2 &quot;người được giao nhiệm vụ hướng dẫn giao thông&quot; thực ra là định nghĩa của câu 13. &quot;điều khiển phương tiện&quot; ≠ &quot;điều khiển giao thông&quot;: một bên là người lái, một bên là người chỉ huy giao thông."><div class="card-head"><h2>Người tham gia GT / điều khiển phương tiện / lái xe / điều khiển giao thông</h2><div class="tags"><span class="tag">Khái niệm</span><span class="src src-L" title="Luật TTATGTĐB 36/2024/QH15 (hiệu lực 01/01/2025)">Luật</span></div></div><p class="intro">Bốn cụm chỉ khác một vài chữ. Hãy tìm <mark>đối tượng đứng sau chữ "người"</mark>.</p><div class="tbl-wrap"><table><thead><tr><th>Cụm trong đề</th><th>Gồm những ai</th></tr></thead><tbody><tr><td><mark>Người tham gia giao thông</mark></td><td>người <mark>điều khiển</mark> + người <mark>được chở</mark> + người dẫn dắt vật nuôi + người <mark>đi bộ</mark> (câu 11: "Cả hai ý")</td></tr><tr><td><mark>Người điều khiển phương tiện</mark> tham gia GT</td><td>xe <mark>cơ giới</mark> + xe <mark>thô sơ</mark> + xe <mark>máy chuyên dùng</mark> (câu 6, 12)</td></tr><tr><td><mark>Người lái xe</mark></td><td><mark>chỉ</mark> người điều khiển <mark>xe cơ giới</mark> (câu 7)</td></tr><tr><td><mark>Người điều khiển giao thông</mark></td><td><mark>Cảnh sát giao thông</mark> + người <mark>được giao nhiệm vụ hướng dẫn giao thông</mark> (câu 13)</td></tr></tbody></table></div><div class="traps"><b>Bẫy cần để ý</b><ul><li>Câu 6: phương án 2 "người được giao nhiệm vụ hướng dẫn giao thông" thực ra là định nghĩa của câu 13.</li><li>"Điều khiển PHƯƠNG TIỆN" ≠ "điều khiển GIAO THÔNG": một bên là người lái, một bên là người chỉ huy giao thông.</li></ul></div><div class="foot"><span class="law">Căn cứ: Luật 36/2024 Điều 2 khoản 8, 9, 10</span><span class="qids">Câu: <i>6</i>, <i>7</i>, <i>11</i>, <i>12</i>, <i>13</i></span></div></section>
-<section class="card" id="co-gioi-tho-so" data-s="xe cơ giới và xe thô sơ hai câu đối xứng, phương án sai chuyển xe từ nhóm này sang nhóm kia. xe đạp điện / xe đạp máy thuộc xe thô sơ. xe gắn máy thuộc xe cơ giới. câu 8: phương án 1 lẫn &quot;xe đạp&quot; vào nhóm cơ giới → sai. câu 9: phương án 2 lẫn &quot;xe gắn máy&quot; vào nhóm thô sơ → sai."><div class="card-head"><h2>Xe cơ giới và xe thô sơ</h2><div class="tags"><span class="tag">Khái niệm</span><span class="src src-NH" title="Theo ngân hàng 600 câu, chưa đối chiếu được văn bản gốc">Ngân hàng đề</span></div></div><p class="intro">Hai câu đối xứng, phương án sai chuyển xe từ nhóm này sang nhóm kia.</p><div class="tbl-wrap"><table><thead><tr><th>Nhóm</th><th>Có (từ khóa)</th><th>Không có</th></tr></thead><tbody><tr><td><mark>Xe cơ giới</mark></td><td>xe ô tô; rơ moóc, sơ mi rơ moóc kéo bởi ô tô; <mark>xe mô tô, xe gắn máy</mark>; xe bốn bánh có gắn động cơ</td><td>xe đạp</td></tr><tr><td><mark>Xe thô sơ</mark></td><td><mark>xe đạp (kể cả xe đạp máy, xe đạp điện)</mark>, xích lô, xe lăn người khuyết tật, xe vật nuôi kéo</td><td>xe gắn máy, xe máy chuyên dùng</td></tr></tbody></table></div><div class="traps"><b>Bẫy cần để ý</b><ul><li>Xe đạp điện / xe đạp máy thuộc xe THÔ SƠ. Xe gắn máy thuộc xe CƠ GIỚI.</li><li>Câu 8: phương án 1 lẫn "xe đạp" vào nhóm cơ giới → sai. Câu 9: phương án 2 lẫn "xe gắn máy" vào nhóm thô sơ → sai.</li></ul></div><div class="foot"><span class="law">Căn cứ: Ngân hàng đề (câu 8, 9)</span><span class="qids">Câu: <i>8</i>, <i>9</i>, <i>10</i></span></div></section>
-<section class="card" id="con-ma-tuy" data-s="nồng độ cồn – ma túy – rượu bia hai chất khác nhau, hình thức xử phạt chỉ khác **một chữ**. chú ý chữ &quot;có thể&quot; ở cồn (25) so với ma túy (23)."><div class="card-head"><h2>Nồng độ cồn – ma túy – rượu bia</h2><div class="tags"><span class="tag">Hành vi cấm</span><span class="src src-L" title="Luật TTATGTĐB 36/2024/QH15 (hiệu lực 01/01/2025)">Luật</span><span class="src src-NH" title="Theo ngân hàng 600 câu, chưa đối chiếu được văn bản gốc">Ngân hàng đề</span></div></div><p class="intro">Hai chất khác nhau, hình thức xử phạt chỉ khác <mark>một chữ</mark>.</p><div class="tbl-wrap"><table><thead><tr><th>Từ khóa</th><th>Kết quả</th></tr></thead><tbody><tr><td><mark>chất ma túy</mark> trong cơ thể (câu 23)</td><td><mark>phạt tiền</mark> VÀ <mark>tước GPLX</mark> → "Cả hai ý"</td></tr><tr><td><mark>nồng độ cồn</mark> trong máu / hơi thở (câu 25)</td><td><mark>phạt tiền</mark> VÀ <mark>có thể</mark> tước GPLX → "Cả hai ý"</td></tr><tr><td>có bị nghiêm cấm không? (câu 24)</td><td><mark>Bị nghiêm cấm</mark> – không có mức "nhẹ" nào được phép</td></tr><tr><td>Luật Phòng chống tác hại rượu bia (câu 26)</td><td><mark>người điều khiển</mark> ô tô, mô tô, xe đạp, xe gắn máy – <mark>không</mark> gồm người được chở</td></tr></tbody></table></div><div class="traps"><b>Bẫy cần để ý</b><ul><li>Chú ý chữ "CÓ THỂ" ở cồn (25) so với ma túy (23).</li></ul></div><div class="foot"><span class="law">Căn cứ: Luật 36/2024 Điều 9 khoản 2, 3 (cấm); mức xử phạt theo ngân hàng đề</span><span class="qids">Câu: <i>23</i>, <i>24</i>, <i>25</i>, <i>26</i></span></div></section>
-<section class="card" id="nhuong-duong" data-s="nhường đường tại nơi giao nhau tìm từ khóa về **loại đường** hoặc **vòng xuyến**, rồi chọn hướng cần nhường. 92 và 93 chỉ khác &quot;có / không có vòng xuyến&quot; nhưng nhường hai phía ngược nhau. 93: phương án &quot;xe báo hiệu xin đường trước thì đi trước&quot; là sai; 92: &quot;không phải nhường&quot; là sai."><div class="card-head"><h2>Nhường đường tại nơi giao nhau</h2><div class="tags"><span class="tag">Quy tắc</span><span class="src src-L" title="Luật TTATGTĐB 36/2024/QH15 (hiệu lực 01/01/2025)">Luật</span></div></div><p class="intro">Tìm từ khóa về <mark>loại đường</mark> hoặc <mark>vòng xuyến</mark>, rồi chọn hướng cần nhường.</p><div class="tbl-wrap"><table><thead><tr><th>Từ khóa trong đề</th><th>Phải nhường</th></tr></thead><tbody><tr><td>đường <mark>không ưu tiên</mark> / <mark>đường nhánh</mark> (câu 91; 253 cùng quy tắc)</td><td>xe trên <mark>đường ưu tiên / đường chính, từ bất kỳ hướng nào</mark></td></tr><tr><td><mark>có</mark> báo hiệu <mark>vòng xuyến</mark> (câu 92)</td><td>xe đến từ bên <mark>TRÁI</mark></td></tr><tr><td><mark>không có</mark> vòng xuyến, cùng cấp (câu 93)</td><td>xe đến từ bên <mark>PHẢI</mark></td></tr></tbody></table></div><div class="traps"><b>Bẫy cần để ý</b><ul><li>92 và 93 chỉ khác "có / không có vòng xuyến" nhưng nhường hai phía ngược nhau.</li><li>93: phương án "xe báo hiệu xin đường trước thì đi trước" là sai; 92: "không phải nhường" là sai.</li></ul></div><div class="foot"><span class="law">Căn cứ: Luật 36/2024 Điều 22</span><span class="qids">Câu: <i>91</i>, <i>92</i>, <i>93</i>, <i>253</i></span></div></section>
-<section class="card" id="cam-theo-hanh-vi" data-s="nơi bị cấm: quay đầu – lùi – vượt – dừng/đỗ bốn hành vi có danh sách nơi cấm chồng nhau. tìm **từ khóa đặc trưng** của từng hành vi. 55: phương án 2 có &quot;đường quốc lộ&quot; – không phải nơi cấm quay đầu → sai; phương án đúng là phương án 1. 62: phương án &quot;lề đường rộng / khu đất ngoài phần đường xe chạy&quot; là nơi được dừng đỗ → sai. 108 (không được vượt): phương án 2 &quot;xe trước đã tránh về bên phải&quot; không phải trường hợp cấm. 109 (được vượt bên phải): xe trước rẽ trái / xe chuyên dùng đang làm việc; &quot;xe trước sát lề trái&quot; là sai."><div class="card-head"><h2>Nơi bị cấm: quay đầu – lùi – vượt – dừng/đỗ</h2><div class="tags"><span class="tag">Quy tắc</span><span class="tag">Dễ nhầm</span><span class="src src-L" title="Luật TTATGTĐB 36/2024/QH15 (hiệu lực 01/01/2025)">Luật</span></div></div><p class="intro">Bốn hành vi có danh sách nơi cấm chồng nhau. Tìm <mark>từ khóa đặc trưng</mark> của từng hành vi.</p><div class="tbl-wrap"><table><thead><tr><th>Hành vi</th><th>Từ khóa nơi bị cấm</th></tr></thead><tbody><tr><td><mark>Quay đầu</mark> (54, 55)</td><td>phần đường <mark>người đi bộ qua đường</mark>, <mark>cầu / đầu cầu / gầm cầu vượt / ngầm</mark>, đường <mark>sắt cùng mức</mark>, đường <mark>hẹp</mark>, <mark>dốc</mark>, đoạn <mark>cong khuất tầm nhìn</mark>, <mark>cao tốc</mark>, <mark>hầm</mark>, đường <mark>một chiều</mark> (trừ có hiệu lệnh/biển tạm thời)</td></tr><tr><td><mark>Lùi xe</mark> (58, 86)</td><td>đường <mark>một chiều</mark>, khu vực <mark>cấm dừng</mark>, phần đường người đi bộ, nơi <mark>giao nhau</mark>, giao <mark>đường sắt</mark>, nơi <mark>tầm nhìn bị che khuất</mark> (→ "không được lùi", không phải "bấm còi 3 lần"), <mark>hầm</mark>, <mark>cao tốc</mark></td></tr><tr><td><mark>Vượt xe</mark> (47, 53)</td><td><mark>cầu hẹp một làn</mark>, <mark>đường cong tầm nhìn hạn chế</mark>, đỉnh dốc khuất tầm nhìn, nơi <mark>giao nhau</mark>, giao đường sắt, <mark>gặp xe ưu tiên</mark>, phần đường người đi bộ, hầm</td></tr><tr><td><mark>Dừng / đỗ</mark> (59, 62)</td><td>miệng <mark>cống thoát nước</mark>, miệng hầm điện thoại, <mark>điện cao thế</mark>, chỗ xe <mark>chữa cháy lấy nước</mark>; <mark>phạm vi an toàn đường sắt</mark>; <mark>song song</mark> cùng chiều với xe đang dừng/đỗ; đường cong / gần đầu dốc <mark>khuất tầm nhìn</mark>; <mark>bên trái</mark> đường một chiều</td></tr></tbody></table></div><div class="keys"><b>Từ khóa nhận dạng</b><ul><li><mark>đường MỘT CHIỀU</mark> → quay đầu: cấm · lùi: cấm · dừng/đỗ: chỉ cấm bên TRÁI</li><li><mark>tầm nhìn bị che khuất</mark> → quay đầu, lùi, dừng/đỗ, vượt đều cấm</li><li><mark>cao tốc</mark> → quay đầu, lùi cấm; dừng/đỗ chỉ ở làn khẩn cấp khi sự cố</li></ul></div><div class="traps"><b>Bẫy cần để ý</b><ul><li>55: phương án 2 có "đường quốc lộ" – không phải nơi cấm quay đầu → sai; phương án đúng là phương án 1.</li><li>62: phương án "lề đường rộng / khu đất ngoài phần đường xe chạy" là nơi ĐƯỢC dừng đỗ → sai.</li><li>108 (không được vượt): phương án 2 "xe trước đã tránh về bên phải" không phải trường hợp cấm. 109 (được vượt bên phải): xe trước rẽ trái / xe chuyên dùng đang làm việc; "xe trước sát lề trái" là sai.</li></ul></div><div class="foot"><span class="law">Căn cứ: Luật 36/2024 Điều 14 (vượt), 15 (quay đầu), 16 (lùi), 18 (dừng/đỗ) – đã đối chiếu từng khoản</span><span class="qids">Câu: <i>47</i>, <i>53</i>, <i>54</i>, <i>55</i>, <i>58</i>, <i>59</i>, <i>62</i>, <i>86</i>, <i>108</i>, <i>109</i></span></div></section>
-<section class="card" id="diem-gplx" data-s="điểm giấy phép lái xe: phục hồi phân biệt **&quot;chưa bị trừ hết&quot;** với **&quot;đã bị trừ hết&quot;** điểm. 141: phương án &quot;12 tháng không vi phạm&quot; là điều kiện của câu 140 – sai ở câu này."><div class="card-head"><h2>Điểm giấy phép lái xe: phục hồi</h2><div class="tags"><span class="tag">Quy định</span><span class="src src-L" title="Luật TTATGTĐB 36/2024/QH15 (hiệu lực 01/01/2025)">Luật</span></div></div><p class="intro">Phân biệt <mark>"chưa bị trừ hết"</mark> với <mark>"đã bị trừ hết"</mark> điểm.</p><div class="tbl-wrap"><table><thead><tr><th>Tình trạng</th><th>Điều kiện phục hồi</th></tr></thead><tbody><tr><td><mark>chưa bị trừ hết</mark> 12 điểm (câu 140)</td><td><mark>12 tháng</mark> liền không bị trừ điểm từ lần trừ gần nhất → phục hồi <mark>đủ 12 điểm</mark></td></tr><tr><td><mark>đã bị trừ hết</mark> điểm (câu 141)</td><td>sau <mark>ít nhất 6 tháng</mark>, kiểm tra kiến thức pháp luật đạt → phục hồi đủ 12 điểm</td></tr></tbody></table></div><div class="traps"><b>Bẫy cần để ý</b><ul><li>141: phương án "12 tháng không vi phạm" là điều kiện của câu 140 – sai ở câu này.</li></ul></div><div class="foot"><span class="law">Căn cứ: Luật 36/2024 Điều 58</span><span class="qids">Câu: <i>139</i>, <i>140</i>, <i>141</i></span></div></section>
-<section class="card" id="bien-chan-le" data-s="biển: cấm đỗ xe ngày chẵn / ngày lẻ cả hai câu dùng cùng một hình ba biển. **đếm số vạch trắng.** 327 (ngày chẵn) → &quot;biển 1 và biển 3&quot;. 328 (ngày lẻ) → &quot;biển 1 và biển 2&quot;. biển 1 luôn đúng vì cấm đỗ mọi ngày."><div class="card-head"><h2>Biển: cấm đỗ xe ngày chẵn / ngày lẻ</h2><div class="tags"><span class="tag">Biển báo</span><span class="src src-NH" title="Theo ngân hàng 600 câu, chưa đối chiếu được văn bản gốc">Ngân hàng đề</span></div></div><p class="intro">Cả hai câu dùng cùng một hình ba biển. <mark>Đếm số vạch trắng.</mark></p><img class="fig" src="images/q327_1.jpeg" alt="Hình minh họa" loading="lazy"><div class="tbl-wrap"><table><thead><tr><th>Biển</th><th>Ý nghĩa</th></tr></thead><tbody><tr><td><mark>Biển 1</mark> – không có vạch</td><td>cấm đỗ xe <mark>mọi ngày</mark></td></tr><tr><td><mark>Biển 2</mark> – <mark>1 vạch</mark></td><td>cấm đỗ xe ngày <mark>lẻ</mark></td></tr><tr><td><mark>Biển 3</mark> – <mark>2 vạch</mark></td><td>cấm đỗ xe ngày <mark>chẵn</mark></td></tr></tbody></table></div><div class="traps"><b>Bẫy cần để ý</b><ul><li>327 (ngày chẵn) → "Biển 1 và biển 3". 328 (ngày lẻ) → "Biển 1 và biển 2". Biển 1 luôn đúng vì cấm đỗ mọi ngày.</li></ul></div><div class="foot"><span class="law">Căn cứ: Ngân hàng đề (câu 327, 328 dùng chung một hình)</span><span class="qids">Câu: <i>327</i>, <i>328</i></span></div></section>
-<section class="card" id="bien-soc-chuong-ngai" data-s="biển sọc vằn: tránh chướng ngại vật bên trái / bên phải / cả hai ba biển chỉ khác **hướng của các sọc chéo**. quy ước **trái / phải** ở đây là **trái / phải của người lái xe đang nhìn thẳng vào biển** – cũng chính là trái / phải khi bạn nhìn tấm hình. đừng đọc theo hướng sọc “đi lên” – hãy nhìn **đầu thấp**. biển 1 cao ở bên phải nhưng thấp ở bên trái nên chỉ bên trái. **đừng nhầm với 473 / 474:** biển chữ v vàng đen khổ **vuông** (mũi tên “&gt;” hoặc “&lt;”) báo **đường cong nguy hiểm** (473: đáp án “biển 1 và biển 3”). biển sọc vằn **hẹp, dài** mới là biển tránh chướng ngại vật; riêng 474 hỏi “đi được cả hai hướng” → biển sọc hẹp chữ v ngược (biển 2)."><div class="card-head"><h2>Biển sọc vằn: tránh chướng ngại vật bên TRÁI / bên PHẢI / cả hai</h2><div class="tags"><span class="tag">Biển báo</span><span class="tag">Dễ nhầm</span><span class="src src-NH" title="Theo ngân hàng 600 câu, chưa đối chiếu được văn bản gốc">Ngân hàng đề</span></div></div><p class="intro">Ba biển chỉ khác <mark>hướng của các sọc chéo</mark>. Quy ước <mark>trái / phải</mark> ở đây là <mark>trái / phải của người lái xe đang nhìn thẳng vào biển</mark> – cũng chính là trái / phải khi bạn nhìn tấm hình.</p><img class="fig" src="images/q470_1.jpeg" alt="Hình minh họa" loading="lazy"><div class="diag"><svg viewBox="0 0 600 330" style="overflow:visible" role="img" aria-label="Sơ đồ ba biển sọc vằn và hướng đi tương ứng">
+  <div id="cards"><section class="card" id="dung-do" data-s="dừng xe và đỗ xe khác nhau ở **thời gian** và việc **được rời xe hay không**. câu 14 (dừng): phương án &quot;không giới hạn thời gian&quot; là sai. câu 15 (đỗ): phương án &quot;có giới hạn thời gian&quot; là sai."><div class="card-head"><h2>Dừng xe và Đỗ xe</h2><div class="tags"><span class="tag">Khái niệm</span><span class="tag">Số liệu</span><span class="src src-L" title="Luật TTATGTĐB 36/2024/QH15 (hiệu lực 01/01/2025)">Luật</span><button class="btn-audio-listen" onclick="playConfusableAudio('audio/confusable/c_dung_do.mp3', '1. Dừng xe và Đỗ xe', 'dung-do')">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <span>Nghe đọc</span>
+      </button></div></div><p class="intro">Khác nhau ở <mark>thời gian</mark> và việc <mark>được rời xe hay không</mark>.</p><div class="tbl-wrap"><table><thead><tr><th></th><th>Dừng xe</th><th>Đỗ xe</th></tr></thead><tbody><tr><td>Thời gian</td><td><mark>tạm thời</mark>, vừa đủ lên/xuống xe, xếp dỡ, kiểm tra kỹ thuật</td><td><mark>không giới hạn</mark> thời gian</td></tr><tr><td>Tắt máy / rời vị trí lái</td><td><mark>không</mark> tắt máy, <mark>không</mark> rời vị trí lái (trừ đóng mở cửa, xếp dỡ, kiểm tra – phải phanh đỗ)</td><td>chỉ rời xe <mark>sau khi đã phanh đỗ</mark> / biện pháp an toàn</td></tr><tr><td>Đường dốc</td><td>–</td><td><mark>đánh lái về phía lề đường, chèn bánh</mark></td></tr></tbody></table></div><div class="keys"><b>Từ khóa nhận dạng</b><ul><li><mark>sát lề, bánh xe gần nhất cách lề không quá</mark> → <mark>0,25 m</mark> (câu 60)</li><li><mark>đường phố hẹp, cách xe ô tô đỗ ngược chiều</mark> → tối thiểu <mark>20 m</mark> (câu 61)</li></ul></div><div class="traps"><b>Bẫy cần để ý</b><ul><li>Câu 14 (dừng): phương án "không giới hạn thời gian" là SAI. Câu 15 (đỗ): phương án "có giới hạn thời gian" là SAI.</li></ul></div><div class="foot"><span class="law">Căn cứ: Luật 36/2024 Điều 18 khoản 1, 2</span><span class="qids">Câu: <i>14</i>, <i>15</i>, <i>60</i>, <i>61</i></span></div></section>
+<section class="card" id="khai-niem-nguoi" data-s="người tham gia gt / điều khiển phương tiện / lái xe / điều khiển giao thông bốn cụm chỉ khác một vài chữ. hãy tìm **đối tượng đứng sau chữ &quot;người&quot;**. câu 6: phương án 2 &quot;người được giao nhiệm vụ hướng dẫn giao thông&quot; thực ra là định nghĩa của câu 13. &quot;điều khiển phương tiện&quot; ≠ &quot;điều khiển giao thông&quot;: một bên là người lái, một bên là người chỉ huy giao thông."><div class="card-head"><h2>Người tham gia GT / điều khiển phương tiện / lái xe / điều khiển giao thông</h2><div class="tags"><span class="tag">Khái niệm</span><span class="src src-L" title="Luật TTATGTĐB 36/2024/QH15 (hiệu lực 01/01/2025)">Luật</span><button class="btn-audio-listen" onclick="playConfusableAudio('audio/confusable/c_khai_niem_nguoi.mp3', '2. Khái niệm về Người trong luật', 'khai-niem-nguoi')">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <span>Nghe đọc</span>
+      </button></div></div><p class="intro">Bốn cụm chỉ khác một vài chữ. Hãy tìm <mark>đối tượng đứng sau chữ "người"</mark>.</p><div class="tbl-wrap"><table><thead><tr><th>Cụm trong đề</th><th>Gồm những ai</th></tr></thead><tbody><tr><td><mark>Người tham gia giao thông</mark></td><td>người <mark>điều khiển</mark> + người <mark>được chở</mark> + người dẫn dắt vật nuôi + người <mark>đi bộ</mark> (câu 11: "Cả hai ý")</td></tr><tr><td><mark>Người điều khiển phương tiện</mark> tham gia GT</td><td>xe <mark>cơ giới</mark> + xe <mark>thô sơ</mark> + xe <mark>máy chuyên dùng</mark> (câu 6, 12)</td></tr><tr><td><mark>Người lái xe</mark></td><td><mark>chỉ</mark> người điều khiển <mark>xe cơ giới</mark> (câu 7)</td></tr><tr><td><mark>Người điều khiển giao thông</mark></td><td><mark>Cảnh sát giao thông</mark> + người <mark>được giao nhiệm vụ hướng dẫn giao thông</mark> (câu 13)</td></tr></tbody></table></div><div class="traps"><b>Bẫy cần để ý</b><ul><li>Câu 6: phương án 2 "người được giao nhiệm vụ hướng dẫn giao thông" thực ra là định nghĩa của câu 13.</li><li>"Điều khiển PHƯƠNG TIỆN" ≠ "điều khiển GIAO THÔNG": một bên là người lái, một bên là người chỉ huy giao thông.</li></ul></div><div class="foot"><span class="law">Căn cứ: Luật 36/2024 Điều 2 khoản 8, 9, 10</span><span class="qids">Câu: <i>6</i>, <i>7</i>, <i>11</i>, <i>12</i>, <i>13</i></span></div></section>
+<section class="card" id="co-gioi-tho-so" data-s="xe cơ giới và xe thô sơ hai câu đối xứng, phương án sai chuyển xe từ nhóm này sang nhóm kia. xe đạp điện / xe đạp máy thuộc xe thô sơ. xe gắn máy thuộc xe cơ giới. câu 8: phương án 1 lẫn &quot;xe đạp&quot; vào nhóm cơ giới → sai. câu 9: phương án 2 lẫn &quot;xe gắn máy&quot; vào nhóm thô sơ → sai."><div class="card-head"><h2>Xe cơ giới và xe thô sơ</h2><div class="tags"><span class="tag">Khái niệm</span><span class="src src-NH" title="Theo ngân hàng 600 câu, chưa đối chiếu được văn bản gốc">Ngân hàng đề</span><button class="btn-audio-listen" onclick="playConfusableAudio('audio/confusable/c_co_gioi_tho_so.mp3', '3. Xe cơ giới và Xe thô sơ', 'co-gioi-tho-so')">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <span>Nghe đọc</span>
+      </button></div></div><p class="intro">Hai câu đối xứng, phương án sai chuyển xe từ nhóm này sang nhóm kia.</p><div class="tbl-wrap"><table><thead><tr><th>Nhóm</th><th>Có (từ khóa)</th><th>Không có</th></tr></thead><tbody><tr><td><mark>Xe cơ giới</mark></td><td>xe ô tô; rơ moóc, sơ mi rơ moóc kéo bởi ô tô; <mark>xe mô tô, xe gắn máy</mark>; xe bốn bánh có gắn động cơ</td><td>xe đạp</td></tr><tr><td><mark>Xe thô sơ</mark></td><td><mark>xe đạp (kể cả xe đạp máy, xe đạp điện)</mark>, xích lô, xe lăn người khuyết tật, xe vật nuôi kéo</td><td>xe gắn máy, xe máy chuyên dùng</td></tr></tbody></table></div><div class="traps"><b>Bẫy cần để ý</b><ul><li>Xe đạp điện / xe đạp máy thuộc xe THÔ SƠ. Xe gắn máy thuộc xe CƠ GIỚI.</li><li>Câu 8: phương án 1 lẫn "xe đạp" vào nhóm cơ giới → sai. Câu 9: phương án 2 lẫn "xe gắn máy" vào nhóm thô sơ → sai.</li></ul></div><div class="foot"><span class="law">Căn cứ: Ngân hàng đề (câu 8, 9)</span><span class="qids">Câu: <i>8</i>, <i>9</i>, <i>10</i></span></div></section>
+<section class="card" id="con-ma-tuy" data-s="nồng độ cồn – ma túy – rượu bia hai chất khác nhau, hình thức xử phạt chỉ khác **một chữ**. chú ý chữ &quot;có thể&quot; ở cồn (25) so với ma túy (23)."><div class="card-head"><h2>Nồng độ cồn – ma túy – rượu bia</h2><div class="tags"><span class="tag">Hành vi cấm</span><span class="src src-L" title="Luật TTATGTĐB 36/2024/QH15 (hiệu lực 01/01/2025)">Luật</span><span class="src src-NH" title="Theo ngân hàng 600 câu, chưa đối chiếu được văn bản gốc">Ngân hàng đề</span><button class="btn-audio-listen" onclick="playConfusableAudio('audio/confusable/c_con_ma_tuy.mp3', '4. Nồng độ cồn – Ma túy – Rượu bia', 'con-ma-tuy')">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <span>Nghe đọc</span>
+      </button></div></div><p class="intro">Hai chất khác nhau, hình thức xử phạt chỉ khác <mark>một chữ</mark>.</p><div class="tbl-wrap"><table><thead><tr><th>Từ khóa</th><th>Kết quả</th></tr></thead><tbody><tr><td><mark>chất ma túy</mark> trong cơ thể (câu 23)</td><td><mark>phạt tiền</mark> VÀ <mark>tước GPLX</mark> → "Cả hai ý"</td></tr><tr><td><mark>nồng độ cồn</mark> trong máu / hơi thở (câu 25)</td><td><mark>phạt tiền</mark> VÀ <mark>có thể</mark> tước GPLX → "Cả hai ý"</td></tr><tr><td>có bị nghiêm cấm không? (câu 24)</td><td><mark>Bị nghiêm cấm</mark> – không có mức "nhẹ" nào được phép</td></tr><tr><td>Luật Phòng chống tác hại rượu bia (câu 26)</td><td><mark>người điều khiển</mark> ô tô, mô tô, xe đạp, xe gắn máy – <mark>không</mark> gồm người được chở</td></tr></tbody></table></div><div class="traps"><b>Bẫy cần để ý</b><ul><li>Chú ý chữ "CÓ THỂ" ở cồn (25) so với ma túy (23).</li></ul></div><div class="foot"><span class="law">Căn cứ: Luật 36/2024 Điều 9 khoản 2, 3 (cấm); mức xử phạt theo ngân hàng đề</span><span class="qids">Câu: <i>23</i>, <i>24</i>, <i>25</i>, <i>26</i></span></div></section>
+<section class="card" id="nhuong-duong" data-s="nhường đường tại nơi giao nhau tìm từ khóa về **loại đường** hoặc **vòng xuyến**, rồi chọn hướng cần nhường. 92 và 93 chỉ khác &quot;có / không có vòng xuyến&quot; nhưng nhường hai phía ngược nhau. 93: phương án &quot;xe báo hiệu xin đường trước thì đi trước&quot; là sai; 92: &quot;không phải nhường&quot; là sai."><div class="card-head"><h2>Nhường đường tại nơi giao nhau</h2><div class="tags"><span class="tag">Quy tắc</span><span class="src src-L" title="Luật TTATGTĐB 36/2024/QH15 (hiệu lực 01/01/2025)">Luật</span><button class="btn-audio-listen" onclick="playConfusableAudio('audio/confusable/c_nhuong_duong.mp3', '5. Nhường đường tại nơi giao nhau', 'nhuong-duong')">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <span>Nghe đọc</span>
+      </button></div></div><p class="intro">Tìm từ khóa về <mark>loại đường</mark> hoặc <mark>vòng xuyến</mark>, rồi chọn hướng cần nhường.</p><div class="tbl-wrap"><table><thead><tr><th>Từ khóa trong đề</th><th>Phải nhường</th></tr></thead><tbody><tr><td>đường <mark>không ưu tiên</mark> / <mark>đường nhánh</mark> (câu 91; 253 cùng quy tắc)</td><td>xe trên <mark>đường ưu tiên / đường chính, từ bất kỳ hướng nào</mark></td></tr><tr><td><mark>có</mark> báo hiệu <mark>vòng xuyến</mark> (câu 92)</td><td>xe đến từ bên <mark>TRÁI</mark></td></tr><tr><td><mark>không có</mark> vòng xuyến, cùng cấp (câu 93)</td><td>xe đến từ bên <mark>PHẢI</mark></td></tr></tbody></table></div><div class="traps"><b>Bẫy cần để ý</b><ul><li>92 và 93 chỉ khác "có / không có vòng xuyến" nhưng nhường hai phía ngược nhau.</li><li>93: phương án "xe báo hiệu xin đường trước thì đi trước" là sai; 92: "không phải nhường" là sai.</li></ul></div><div class="foot"><span class="law">Căn cứ: Luật 36/2024 Điều 22</span><span class="qids">Câu: <i>91</i>, <i>92</i>, <i>93</i>, <i>253</i></span></div></section>
+<section class="card" id="cam-theo-hanh-vi" data-s="nơi bị cấm: quay đầu – lùi – vượt – dừng/đỗ bốn hành vi có danh sách nơi cấm chồng nhau. tìm **từ khóa đặc trưng** của từng hành vi. 55: phương án 2 có &quot;đường quốc lộ&quot; – không phải nơi cấm quay đầu → sai; phương án đúng là phương án 1. 62: phương án &quot;lề đường rộng / khu đất ngoài phần đường xe chạy&quot; là nơi được dừng đỗ → sai. 108 (không được vượt): phương án 2 &quot;xe trước đã tránh về bên phải&quot; không phải trường hợp cấm. 109 (được vượt bên phải): xe trước rẽ trái / xe chuyên dùng đang làm việc; &quot;xe trước sát lề trái&quot; là sai."><div class="card-head"><h2>Nơi bị cấm: quay đầu – lùi – vượt – dừng/đỗ</h2><div class="tags"><span class="tag">Quy tắc</span><span class="tag">Dễ nhầm</span><span class="src src-L" title="Luật TTATGTĐB 36/2024/QH15 (hiệu lực 01/01/2025)">Luật</span><button class="btn-audio-listen" onclick="playConfusableAudio('audio/confusable/c_cam_theo_hanh-vi.mp3', '6. Nơi bị cấm: Quay đầu, Lùi xe, Vượt', 'cam-theo-hanh-vi')">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <span>Nghe đọc</span>
+      </button></div></div><p class="intro">Bốn hành vi có danh sách nơi cấm chồng nhau. Tìm <mark>từ khóa đặc trưng</mark> của từng hành vi.</p><div class="tbl-wrap"><table><thead><tr><th>Hành vi</th><th>Từ khóa nơi bị cấm</th></tr></thead><tbody><tr><td><mark>Quay đầu</mark> (54, 55)</td><td>phần đường <mark>người đi bộ qua đường</mark>, <mark>cầu / đầu cầu / gầm cầu vượt / ngầm</mark>, đường <mark>sắt cùng mức</mark>, đường <mark>hẹp</mark>, <mark>dốc</mark>, đoạn <mark>cong khuất tầm nhìn</mark>, <mark>cao tốc</mark>, <mark>hầm</mark>, đường <mark>một chiều</mark> (trừ có hiệu lệnh/biển tạm thời)</td></tr><tr><td><mark>Lùi xe</mark> (58, 86)</td><td>đường <mark>một chiều</mark>, khu vực <mark>cấm dừng</mark>, phần đường người đi bộ, nơi <mark>giao nhau</mark>, giao <mark>đường sắt</mark>, nơi <mark>tầm nhìn bị che khuất</mark> (→ "không được lùi", không phải "bấm còi 3 lần"), <mark>hầm</mark>, <mark>cao tốc</mark></td></tr><tr><td><mark>Vượt xe</mark> (47, 53)</td><td><mark>cầu hẹp một làn</mark>, <mark>đường cong tầm nhìn hạn chế</mark>, đỉnh dốc khuất tầm nhìn, nơi <mark>giao nhau</mark>, giao đường sắt, <mark>gặp xe ưu tiên</mark>, phần đường người đi bộ, hầm</td></tr><tr><td><mark>Dừng / đỗ</mark> (59, 62)</td><td>miệng <mark>cống thoát nước</mark>, miệng hầm điện thoại, <mark>điện cao thế</mark>, chỗ xe <mark>chữa cháy lấy nước</mark>; <mark>phạm vi an toàn đường sắt</mark>; <mark>song song</mark> cùng chiều với xe đang dừng/đỗ; đường cong / gần đầu dốc <mark>khuất tầm nhìn</mark>; <mark>bên trái</mark> đường một chiều</td></tr></tbody></table></div><div class="keys"><b>Từ khóa nhận dạng</b><ul><li><mark>đường MỘT CHIỀU</mark> → quay đầu: cấm · lùi: cấm · dừng/đỗ: chỉ cấm bên TRÁI</li><li><mark>tầm nhìn bị che khuất</mark> → quay đầu, lùi, dừng/đỗ, vượt đều cấm</li><li><mark>cao tốc</mark> → quay đầu, lùi cấm; dừng/đỗ chỉ ở làn khẩn cấp khi sự cố</li></ul></div><div class="traps"><b>Bẫy cần để ý</b><ul><li>55: phương án 2 có "đường quốc lộ" – không phải nơi cấm quay đầu → sai; phương án đúng là phương án 1.</li><li>62: phương án "lề đường rộng / khu đất ngoài phần đường xe chạy" là nơi ĐƯỢC dừng đỗ → sai.</li><li>108 (không được vượt): phương án 2 "xe trước đã tránh về bên phải" không phải trường hợp cấm. 109 (được vượt bên phải): xe trước rẽ trái / xe chuyên dùng đang làm việc; "xe trước sát lề trái" là sai.</li></ul></div><div class="foot"><span class="law">Căn cứ: Luật 36/2024 Điều 14 (vượt), 15 (quay đầu), 16 (lùi), 18 (dừng/đỗ) – đã đối chiếu từng khoản</span><span class="qids">Câu: <i>47</i>, <i>53</i>, <i>54</i>, <i>55</i>, <i>58</i>, <i>59</i>, <i>62</i>, <i>86</i>, <i>108</i>, <i>109</i></span></div></section>
+<section class="card" id="diem-gplx" data-s="điểm giấy phép lái xe: phục hồi phân biệt **&quot;chưa bị trừ hết&quot;** với **&quot;đã bị trừ hết&quot;** điểm. 141: phương án &quot;12 tháng không vi phạm&quot; là điều kiện của câu 140 – sai ở câu này."><div class="card-head"><h2>Điểm giấy phép lái xe: phục hồi</h2><div class="tags"><span class="tag">Quy định</span><span class="src src-L" title="Luật TTATGTĐB 36/2024/QH15 (hiệu lực 01/01/2025)">Luật</span><button class="btn-audio-listen" onclick="playConfusableAudio('audio/confusable/c_diem_gplx.mp3', '7. Điểm giấy phép lái xe: Phục hồi', 'diem-gplx')">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <span>Nghe đọc</span>
+      </button></div></div><p class="intro">Phân biệt <mark>"chưa bị trừ hết"</mark> với <mark>"đã bị trừ hết"</mark> điểm.</p><div class="tbl-wrap"><table><thead><tr><th>Tình trạng</th><th>Điều kiện phục hồi</th></tr></thead><tbody><tr><td><mark>chưa bị trừ hết</mark> 12 điểm (câu 140)</td><td><mark>12 tháng</mark> liền không bị trừ điểm từ lần trừ gần nhất → phục hồi <mark>đủ 12 điểm</mark></td></tr><tr><td><mark>đã bị trừ hết</mark> điểm (câu 141)</td><td>sau <mark>ít nhất 6 tháng</mark>, kiểm tra kiến thức pháp luật đạt → phục hồi đủ 12 điểm</td></tr></tbody></table></div><div class="traps"><b>Bẫy cần để ý</b><ul><li>141: phương án "12 tháng không vi phạm" là điều kiện của câu 140 – sai ở câu này.</li></ul></div><div class="foot"><span class="law">Căn cứ: Luật 36/2024 Điều 58</span><span class="qids">Câu: <i>139</i>, <i>140</i>, <i>141</i></span></div></section>
+<section class="card" id="bien-chan-le" data-s="biển: cấm đỗ xe ngày chẵn / ngày lẻ cả hai câu dùng cùng một hình ba biển. **đếm số vạch trắng.** 327 (ngày chẵn) → &quot;biển 1 và biển 3&quot;. 328 (ngày lẻ) → &quot;biển 1 và biển 2&quot;. biển 1 luôn đúng vì cấm đỗ mọi ngày."><div class="card-head"><h2>Biển: cấm đỗ xe ngày chẵn / ngày lẻ</h2><div class="tags"><span class="tag">Biển báo</span><span class="src src-NH" title="Theo ngân hàng 600 câu, chưa đối chiếu được văn bản gốc">Ngân hàng đề</span><button class="btn-audio-listen" onclick="playConfusableAudio('audio/confusable/c_bien_chan_le.mp3', '8. Biển cấm đỗ xe ngày chẵn, ngày lẻ', 'bien-chan-le')">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <span>Nghe đọc</span>
+      </button></div></div><p class="intro">Cả hai câu dùng cùng một hình ba biển. <mark>Đếm số vạch trắng.</mark></p><img class="fig" src="images/q327_1.jpeg" alt="Hình minh họa" loading="lazy"><div class="tbl-wrap"><table><thead><tr><th>Biển</th><th>Ý nghĩa</th></tr></thead><tbody><tr><td><mark>Biển 1</mark> – không có vạch</td><td>cấm đỗ xe <mark>mọi ngày</mark></td></tr><tr><td><mark>Biển 2</mark> – <mark>1 vạch</mark></td><td>cấm đỗ xe ngày <mark>lẻ</mark></td></tr><tr><td><mark>Biển 3</mark> – <mark>2 vạch</mark></td><td>cấm đỗ xe ngày <mark>chẵn</mark></td></tr></tbody></table></div><div class="traps"><b>Bẫy cần để ý</b><ul><li>327 (ngày chẵn) → "Biển 1 và biển 3". 328 (ngày lẻ) → "Biển 1 và biển 2". Biển 1 luôn đúng vì cấm đỗ mọi ngày.</li></ul></div><div class="foot"><span class="law">Căn cứ: Ngân hàng đề (câu 327, 328 dùng chung một hình)</span><span class="qids">Câu: <i>327</i>, <i>328</i></span></div></section>
+<section class="card" id="bien-soc-chuong-ngai" data-s="biển sọc vằn: tránh chướng ngại vật bên trái / bên phải / cả hai ba biển chỉ khác **hướng của các sọc chéo**. quy ước **trái / phải** ở đây là **trái / phải của người lái xe đang nhìn thẳng vào biển** – cũng chính là trái / phải khi bạn nhìn tấm hình. đừng đọc theo hướng sọc “đi lên” – hãy nhìn **đầu thấp**. biển 1 cao ở bên phải nhưng thấp ở bên trái nên chỉ bên trái. **đừng nhầm với 473 / 474:** biển chữ v vàng đen khổ **vuông** (mũi tên “&gt;” hoặc “&lt;”) báo **đường cong nguy hiểm** (473: đáp án “biển 1 và biển 3”). biển sọc vằn **hẹp, dài** mới là biển tránh chướng ngại vật; riêng 474 hỏi “đi được cả hai hướng” → biển sọc hẹp chữ v ngược (biển 2)."><div class="card-head"><h2>Biển sọc vằn: tránh chướng ngại vật bên TRÁI / bên PHẢI / cả hai</h2><div class="tags"><span class="tag">Biển báo</span><span class="tag">Dễ nhầm</span><span class="src src-NH" title="Theo ngân hàng 600 câu, chưa đối chiếu được văn bản gốc">Ngân hàng đề</span><button class="btn-audio-listen" onclick="playConfusableAudio('audio/confusable/c_bien_soc_chuong_ngai.mp3', '9. Biển sọc vằn tránh chướng ngại vật', 'bien-soc-chuong-ngai')">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <span>Nghe đọc</span>
+      </button></div></div><p class="intro">Ba biển chỉ khác <mark>hướng của các sọc chéo</mark>. Quy ước <mark>trái / phải</mark> ở đây là <mark>trái / phải của người lái xe đang nhìn thẳng vào biển</mark> – cũng chính là trái / phải khi bạn nhìn tấm hình.</p><img class="fig" src="images/q470_1.jpeg" alt="Hình minh họa" loading="lazy"><div class="diag"><svg viewBox="0 0 600 330" style="overflow:visible" role="img" aria-label="Sơ đồ ba biển sọc vằn và hướng đi tương ứng">
   <defs>
    <clipPath id="cl"><rect x="0" y="0" width="120" height="240" rx="10"/></clipPath>
   </defs>
@@ -107,9 +326,45 @@ mark{background:var(--accent-gold-soft);color:var(--accent-gold);padding:0 4px;b
    <text x="60" y="300" text-anchor="middle" class="d-a">đi bên PHẢI →</text>
   </g>
  </svg></div><div class="tbl-wrap"><table><thead><tr><th>Biển</th><th>Hình sọc</th><th>Đi về phía nào?</th><th>Đáp án câu</th></tr></thead><tbody><tr><td><mark>Biển 1</mark></td><td>sọc nghiêng <mark>“/”</mark>: đầu <mark>thấp</mark> (vạch đỏ trên sơ đồ) của sọc nằm ở bên <mark>TRÁI</mark> (đi từ dưới-trái lên trên-phải)</td><td><mark>bên TRÁI</mark> của chướng ngại vật</td><td><mark>470</mark> (đi bên trái) → Biển 1</td></tr><tr><td><mark>Biển 2</mark></td><td>sọc hình <mark>chữ V ngược “^”</mark> (đỉnh hướng lên, hai nhánh <mark>cùng thấp xuống hai bên</mark>)</td><td><mark>cả hai bên</mark> (trái hoặc phải)</td><td><mark>472</mark> (cả hai hướng) → Biển 2</td></tr><tr><td><mark>Biển 3</mark></td><td>sọc nghiêng <mark>“\”</mark>: đầu <mark>thấp</mark> của sọc nằm ở bên <mark>PHẢI</mark> (đi từ trên-trái xuống dưới-phải)</td><td><mark>bên PHẢI</mark> của chướng ngại vật</td><td><mark>471</mark> (đi bên phải) → Biển 3</td></tr></tbody></table></div><div class="keys"><b>Từ khóa nhận dạng</b><ul><li><mark>sọc dốc xuống về phía nào</mark> → xe lách về phía đó (“/” → trái, “\” → phải)</li><li><mark>chữ V ngược “^” – xuống cả hai bên</mark> → được đi cả hai bên</li></ul></div><div class="traps"><b>Bẫy cần để ý</b><ul><li>Đừng đọc theo hướng sọc “đi lên” – hãy nhìn <mark>đầu thấp</mark>. Biển 1 cao ở bên phải nhưng thấp ở bên TRÁI nên chỉ bên trái.</li><li><mark>Đừng nhầm với 473 / 474:</mark> biển chữ V vàng đen khổ <mark>vuông</mark> (mũi tên “&gt;” hoặc “&lt;”) báo <mark>đường cong nguy hiểm</mark> (473: đáp án “Biển 1 và biển 3”). Biển sọc vằn <mark>hẹp, dài</mark> mới là biển tránh chướng ngại vật; riêng 474 hỏi “đi được cả hai hướng” → biển sọc hẹp chữ V ngược (Biển 2).</li></ul></div><div class="foot"><span class="law">Căn cứ: Ngân hàng đề (câu 470, 471, 472 dùng chung một hình; câu 473, 474 là biển liên quan)</span><span class="qids">Câu: <i>470</i>, <i>471</i>, <i>472</i>, <i>473</i>, <i>474</i></span></div></section>
-<section class="card" id="bien-duong-hep" data-s="biển đường hẹp: hai chiều – nhường đường – được ưu tiên cả ba biển đều có **hai mũi tên ngược chiều**. đừng cố đọc từng mũi tên đỏ / trắng / đen – hãy nhìn **hình dạng và màu nền của cả biển** trước. **hai biển luôn đi cặp:** nếu phía bạn là biển xanh (ưu tiên) thì phía xe ngược chiều là biển tròn đỏ (nhường), và ngược lại. **ngoại lệ:** nếu xe ngược chiều **đã vào đoạn đường hẹp** rồi thì xe ở phía được ưu tiên cũng phải nhường. câu 390 hỏi biển **&quot;nhường đường&quot;** → biển 2; câu 391 hỏi biển **&quot;được ưu tiên&quot;** → biển 3. hai biển giống nhau về mũi tên, chỉ khác viền đỏ-tròn so với nền xanh-vuông. **về màu mũi tên:** nguồn quy chuẩn tôi đọc được không mô tả ý nghĩa riêng của mũi tên đỏ / trắng / đen. vì vậy trang này nhận biết theo hình dạng và nền biển – đây là căn cứ chắc chắn để chọn đáp án."><div class="card-head"><h2>Biển đường hẹp: hai chiều – nhường đường – được ưu tiên</h2><div class="tags"><span class="tag">Biển báo</span><span class="tag">Dễ nhầm</span><span class="src src-NH" title="Theo ngân hàng 600 câu, chưa đối chiếu được văn bản gốc">Ngân hàng đề</span></div></div><p class="intro">Cả ba biển đều có <mark>hai mũi tên ngược chiều</mark>. Đừng cố đọc từng mũi tên đỏ / trắng / đen – hãy nhìn <mark>hình dạng và màu nền của cả biển</mark> trước.</p><img class="fig" src="images/q389_1.jpeg" alt="Hình minh họa" loading="lazy"><div class="tbl-wrap"><table><thead><tr><th>Biển</th><th>Nhận dạng</th><th>Ý nghĩa</th><th>Bên nào nhường?</th><th>Đáp án câu</th></tr></thead><tbody><tr><td><mark>Biển 1</mark></td><td><mark>tam giác</mark> vàng, viền đỏ; hai mũi tên <mark>đen</mark></td><td><mark>Đường hai chiều</mark> (chỉ cảnh báo)</td><td>không quy định nhường – chỉ báo phía trước là đường hai chiều</td><td><mark>389</mark> → Biển 1</td></tr><tr><td><mark>Biển 2</mark></td><td><mark>hình tròn viền đỏ</mark> (biển hiệu lệnh); mũi tên <mark>đen</mark> + <mark>đỏ</mark></td><td><mark>Nhường đường cho xe cơ giới đi ngược chiều</mark> qua đường hẹp (P.132)</td><td><mark>BẠN phải nhường</mark>: giảm tốc, dừng lại nếu có xe ngược chiều tới</td><td><mark>390</mark> → Biển 2</td></tr><tr><td><mark>Biển 3</mark></td><td><mark>hình vuông nền xanh</mark> (biển chỉ dẫn); mũi tên <mark>trắng</mark> + <mark>đỏ</mark></td><td><mark>Được ưu tiên qua đường hẹp</mark> (I.406)</td><td><mark>BẠN được đi trước</mark>; xe ngược chiều (phía biển tròn đỏ) phải nhường</td><td><mark>391</mark> → Biển 3</td></tr></tbody></table></div><div class="keys"><b>Từ khóa nhận dạng</b><ul><li><mark>tròn, viền đỏ</mark> → nhường (mình phải nhường xe ngược chiều)</li><li><mark>vuông, nền xanh</mark> → được ưu tiên (mình đi trước)</li><li><mark>tam giác vàng</mark> → chỉ báo đường hai chiều, không nói ai nhường</li></ul></div><div class="traps"><b>Bẫy cần để ý</b><ul><li><mark>Hai biển luôn đi cặp:</mark> nếu phía bạn là biển XANH (ưu tiên) thì phía xe ngược chiều là biển TRÒN ĐỎ (nhường), và ngược lại.</li><li><mark>Ngoại lệ:</mark> nếu xe ngược chiều <mark>đã vào đoạn đường hẹp</mark> rồi thì xe ở phía được ưu tiên cũng phải nhường.</li><li>Câu 390 hỏi biển <mark>"nhường đường"</mark> → Biển 2; câu 391 hỏi biển <mark>"được ưu tiên"</mark> → Biển 3. Hai biển giống nhau về mũi tên, chỉ khác viền đỏ-tròn so với nền xanh-vuông.</li><li><mark>Về màu mũi tên:</mark> nguồn quy chuẩn tôi đọc được không mô tả ý nghĩa riêng của mũi tên đỏ / trắng / đen. Vì vậy trang này nhận biết theo hình dạng và nền biển – đây là căn cứ chắc chắn để chọn đáp án.</li></ul></div><div class="foot"><span class="law">Căn cứ: Ngân hàng đề (câu 389, 390, 391 dùng chung một hình). Tên biển P.132 có trong QCVN 41:2024; tên biển I.406 tra theo bài viết pháp luật, chưa xác nhận trong bản 2024</span><span class="qids">Câu: <i>389</i>, <i>390</i>, <i>391</i></span></div></section>
-<section class="card" id="ca-hai-y" data-s="mẹo làm bài: khi nào &quot;cả hai ý trên&quot; là đáp án? nhóm &quot;hành vi bị cấm&quot; thường có đáp án &quot;cả hai / ba ý&quot;, nhưng có câu **chỉ một ý đúng**. đừng chọn theo thói quen. đọc từng phương án: nếu một phương án rõ ràng không phải hành vi bị cấm (vd &quot;sử dụng xe đạp trên quốc lộ&quot;, &quot;giảm giá để thu hút khách&quot;) thì &quot;cả hai ý&quot; chắc chắn sai."><div class="card-head"><h2>Mẹo làm bài: khi nào &quot;Cả hai ý trên&quot; là đáp án?</h2><div class="tags"><span class="tag">Mẹo</span><span class="src src-NH" title="Theo ngân hàng 600 câu, chưa đối chiếu được văn bản gốc">Ngân hàng đề</span></div></div><p class="intro">Nhóm "Hành vi bị cấm" thường có đáp án "Cả hai / ba ý", nhưng có câu <mark>chỉ một ý đúng</mark>. Đừng chọn theo thói quen.</p><div class="tbl-wrap"><table><thead><tr><th>Đáp án</th><th>Các câu</th></tr></thead><tbody><tr><td>"Cả hai / ba ý trên"</td><td>20, 23, 25, 27, 28, 30, 169</td></tr><tr><td><mark>Chỉ MỘT ý đúng</mark> (bẫy)</td><td><mark>19</mark> (rải vật sắc nhọn…), <mark>29</mark> (cải tạo trái phép…), <mark>32</mark> (lạng lách…), <mark>52</mark> (dùng tay cầm điện thoại), <mark>170</mark> (đe dọa, tranh giành khách…)</td></tr></tbody></table></div><div class="traps"><b>Bẫy cần để ý</b><ul><li>Đọc từng phương án: nếu một phương án rõ ràng KHÔNG phải hành vi bị cấm (vd "Sử dụng xe đạp trên quốc lộ", "giảm giá để thu hút khách") thì "Cả hai ý" chắc chắn sai.</li></ul></div><div class="foot"><span class="law">Căn cứ: Tổng hợp từ ngân hàng đề</span><span class="qids">Câu: <i>19</i>, <i>20</i>, <i>23</i>, <i>25</i>, <i>27</i>, <i>28</i>, <i>29</i>, <i>30</i>, <i>32</i>, <i>52</i>, <i>169</i>, <i>170</i></span></div></section></div>
+<section class="card" id="bien-duong-hep" data-s="biển đường hẹp: hai chiều – nhường đường – được ưu tiên cả ba biển đều có **hai mũi tên ngược chiều**. đừng cố đọc từng mũi tên đỏ / trắng / đen – hãy nhìn **hình dạng và màu nền của cả biển** trước. **hai biển luôn đi cặp:** nếu phía bạn là biển xanh (ưu tiên) thì phía xe ngược chiều là biển tròn đỏ (nhường), và ngược lại. **ngoại lệ:** nếu xe ngược chiều **đã vào đoạn đường hẹp** rồi thì xe ở phía được ưu tiên cũng phải nhường. câu 390 hỏi biển **&quot;nhường đường&quot;** → biển 2; câu 391 hỏi biển **&quot;được ưu tiên&quot;** → biển 3. hai biển giống nhau về mũi tên, chỉ khác viền đỏ-tròn so với nền xanh-vuông. **về màu mũi tên:** nguồn quy chuẩn tôi đọc được không mô tả ý nghĩa riêng của mũi tên đỏ / trắng / đen. vì vậy trang này nhận biết theo hình dạng và nền biển – đây là căn cứ chắc chắn để chọn đáp án."><div class="card-head"><h2>Biển đường hẹp: hai chiều – nhường đường – được ưu tiên</h2><div class="tags"><span class="tag">Biển báo</span><span class="tag">Dễ nhầm</span><span class="src src-NH" title="Theo ngân hàng 600 câu, chưa đối chiếu được văn bản gốc">Ngân hàng đề</span><button class="btn-audio-listen" onclick="playConfusableAudio('audio/confusable/c_bien_duong_hep.mp3', '10. Biển đường hẹp: Hai chiều, Nhường, Ưu tiên', 'bien-duong-hep')">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <span>Nghe đọc</span>
+      </button></div></div><p class="intro">Cả ba biển đều có <mark>hai mũi tên ngược chiều</mark>. Đừng cố đọc từng mũi tên đỏ / trắng / đen – hãy nhìn <mark>hình dạng và màu nền của cả biển</mark> trước.</p><img class="fig" src="images/q389_1.jpeg" alt="Hình minh họa" loading="lazy"><div class="tbl-wrap"><table><thead><tr><th>Biển</th><th>Nhận dạng</th><th>Ý nghĩa</th><th>Bên nào nhường?</th><th>Đáp án câu</th></tr></thead><tbody><tr><td><mark>Biển 1</mark></td><td><mark>tam giác</mark> vàng, viền đỏ; hai mũi tên <mark>đen</mark></td><td><mark>Đường hai chiều</mark> (chỉ cảnh báo)</td><td>không quy định nhường – chỉ báo phía trước là đường hai chiều</td><td><mark>389</mark> → Biển 1</td></tr><tr><td><mark>Biển 2</mark></td><td><mark>hình tròn viền đỏ</mark> (biển hiệu lệnh); mũi tên <mark>đen</mark> + <mark>đỏ</mark></td><td><mark>Nhường đường cho xe cơ giới đi ngược chiều</mark> qua đường hẹp (P.132)</td><td><mark>BẠN phải nhường</mark>: giảm tốc, dừng lại nếu có xe ngược chiều tới</td><td><mark>390</mark> → Biển 2</td></tr><tr><td><mark>Biển 3</mark></td><td><mark>hình vuông nền xanh</mark> (biển chỉ dẫn); mũi tên <mark>trắng</mark> + <mark>đỏ</mark></td><td><mark>Được ưu tiên qua đường hẹp</mark> (I.406)</td><td><mark>BẠN được đi trước</mark>; xe ngược chiều (phía biển tròn đỏ) phải nhường</td><td><mark>391</mark> → Biển 3</td></tr></tbody></table></div><div class="keys"><b>Từ khóa nhận dạng</b><ul><li><mark>tròn, viền đỏ</mark> → nhường (mình phải nhường xe ngược chiều)</li><li><mark>vuông, nền xanh</mark> → được ưu tiên (mình đi trước)</li><li><mark>tam giác vàng</mark> → chỉ báo đường hai chiều, không nói ai nhường</li></ul></div><div class="traps"><b>Bẫy cần để ý</b><ul><li><mark>Hai biển luôn đi cặp:</mark> nếu phía bạn là biển XANH (ưu tiên) thì phía xe ngược chiều là biển TRÒN ĐỎ (nhường), và ngược lại.</li><li><mark>Ngoại lệ:</mark> nếu xe ngược chiều <mark>đã vào đoạn đường hẹp</mark> rồi thì xe ở phía được ưu tiên cũng phải nhường.</li><li>Câu 390 hỏi biển <mark>"nhường đường"</mark> → Biển 2; câu 391 hỏi biển <mark>"được ưu tiên"</mark> → Biển 3. Hai biển giống nhau về mũi tên, chỉ khác viền đỏ-tròn so với nền xanh-vuông.</li><li><mark>Về màu mũi tên:</mark> nguồn quy chuẩn tôi đọc được không mô tả ý nghĩa riêng của mũi tên đỏ / trắng / đen. Vì vậy trang này nhận biết theo hình dạng và nền biển – đây là căn cứ chắc chắn để chọn đáp án.</li></ul></div><div class="foot"><span class="law">Căn cứ: Ngân hàng đề (câu 389, 390, 391 dùng chung một hình). Tên biển P.132 có trong QCVN 41:2024; tên biển I.406 tra theo bài viết pháp luật, chưa xác nhận trong bản 2024</span><span class="qids">Câu: <i>389</i>, <i>390</i>, <i>391</i></span></div></section>
+<section class="card" id="ca-hai-y" data-s="mẹo làm bài: khi nào &quot;cả hai ý trên&quot; là đáp án? nhóm &quot;hành vi bị cấm&quot; thường có đáp án &quot;cả hai / ba ý&quot;, nhưng có câu **chỉ một ý đúng**. đừng chọn theo thói quen. đọc từng phương án: nếu một phương án rõ ràng không phải hành vi bị cấm (vd &quot;sử dụng xe đạp trên quốc lộ&quot;, &quot;giảm giá để thu hút khách&quot;) thì &quot;cả hai ý&quot; chắc chắn sai."><div class="card-head"><h2>Mẹo làm bài: khi nào &quot;Cả hai ý trên&quot; là đáp án?</h2><div class="tags"><span class="tag">Mẹo</span><span class="src src-NH" title="Theo ngân hàng 600 câu, chưa đối chiếu được văn bản gốc">Ngân hàng đề</span><button class="btn-audio-listen" onclick="playConfusableAudio('audio/confusable/c_ca_hai_y.mp3', '11. Mẹo: Khi nào Cả hai ý là đáp án', 'ca-hai-y')">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <span>Nghe đọc</span>
+      </button></div></div><p class="intro">Nhóm "Hành vi bị cấm" thường có đáp án "Cả hai / ba ý", nhưng có câu <mark>chỉ một ý đúng</mark>. Đừng chọn theo thói quen.</p><div class="tbl-wrap"><table><thead><tr><th>Đáp án</th><th>Các câu</th></tr></thead><tbody><tr><td>"Cả hai / ba ý trên"</td><td>20, 23, 25, 27, 28, 30, 169</td></tr><tr><td><mark>Chỉ MỘT ý đúng</mark> (bẫy)</td><td><mark>19</mark> (rải vật sắc nhọn…), <mark>29</mark> (cải tạo trái phép…), <mark>32</mark> (lạng lách…), <mark>52</mark> (dùng tay cầm điện thoại), <mark>170</mark> (đe dọa, tranh giành khách…)</td></tr></tbody></table></div><div class="traps"><b>Bẫy cần để ý</b><ul><li>Đọc từng phương án: nếu một phương án rõ ràng KHÔNG phải hành vi bị cấm (vd "Sử dụng xe đạp trên quốc lộ", "giảm giá để thu hút khách") thì "Cả hai ý" chắc chắn sai.</li></ul></div><div class="foot"><span class="law">Căn cứ: Tổng hợp từ ngân hàng đề</span><span class="qids">Câu: <i>19</i>, <i>20</i>, <i>23</i>, <i>25</i>, <i>27</i>, <i>28</i>, <i>29</i>, <i>30</i>, <i>32</i>, <i>52</i>, <i>169</i>, <i>170</i></span></div></section></div>
   <p class="note"><b>Lưu ý.</b> Các con số tuổi, hạng bằng ở nhóm “Độ tuổi” được đối chiếu qua bài tổng hợp pháp luật, chưa có toàn văn Điều 57/59. Các nhóm biển báo chỉ gồm những cặp đã xem hình; các nhóm biển khác chưa đưa vào. Khi có khác biệt với văn bản mới nhất, hãy ưu tiên văn bản chính thức.</p>
+
+  <!-- Docked Audio Player -->
+  <div class="docked-player">
+    <div class="docked-player-inner">
+      <div class="dock-left">
+        <button id="btn-master-play" class="btn-player-play" onclick="toggleMasterPlay()" title="Phát/Tạm dừng">
+          <svg id="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <div class="dock-meta">
+          <span id="player-track-title" class="dock-track-title">Toàn bộ 11 cạm bẫy</span>
+          <span id="player-status-text" class="dock-status-text">SẴN SÀNG</span>
+        </div>
+      </div>
+
+      <div class="dock-center">
+        <span id="time-curr" class="mono-time">00:00</span>
+        <input id="seek-slider" class="dock-seek" type="range" min="0" max="100" value="0" oninput="seekAudio(this.value)">
+        <span id="time-total" class="mono-time">07:32</span>
+      </div>
+
+      <div class="dock-speeds">
+        <button class="speed-pill" onclick="setPlaybackSpeed(0.8, this)">0.8×</button>
+        <button class="speed-pill active" onclick="setPlaybackSpeed(1.0, this)">1.0×</button>
+        <button class="speed-pill" onclick="setPlaybackSpeed(1.25, this)">1.25×</button>
+        <button class="speed-pill" onclick="setPlaybackSpeed(1.5, this)">1.5×</button>
+      </div>
+    </div>
+  </div>
+
+  <audio id="global-audio" src="audio/confusable/tong_hop_confusable.mp3" preload="metadata"></audio>
 </main>
 <script>
 (function(){
@@ -120,5 +375,142 @@ mark{background:var(--accent-gold-soft);color:var(--accent-gold);padding:0 4px;b
   });
 })();
 </script>
+
+<script>
+// Audio Player & Viewport Auto Scroll for Confusable Page
+(function() {
+  const CONFUSABLE_TIMELINE = [
+    { id: "topbar", start: 0.0, end: 11.8, title: "Giới thiệu chuyên đề" },
+    { id: "dung-do", start: 12.5, end: 53.3, title: "1. Dừng xe và Đỗ xe" },
+    { id: "khai-niem-nguoi", start: 54.0, end: 97.4, title: "2. Khái niệm về Người trong luật" },
+    { id: "co-gioi-tho-so", start: 98.1, end: 131.6, title: "3. Xe cơ giới và Xe thô sơ" },
+    { id: "con-ma-tuy", start: 132.3, end: 168.7, title: "4. Nồng độ cồn – Ma túy – Rượu bia" },
+    { id: "nhuong-duong", start: 169.4, end: 202.1, title: "5. Nhường đường tại nơi giao nhau" },
+    { id: "cam-theo-hanh-vi", start: 202.8, end: 249.8, title: "6. Nơi bị cấm: Quay đầu, Lùi xe, Vượt" },
+    { id: "diem-gplx", start: 250.5, end: 289.2, title: "7. Điểm giấy phép lái xe: Phục hồi" },
+    { id: "bien-chan-le", start: 289.9, end: 326.1, title: "8. Biển cấm đỗ xe ngày chẵn, ngày lẻ" },
+    { id: "bien-soc-chuong-ngai", start: 326.8, end: 364.5, title: "9. Biển sọc vằn tránh chướng ngại vật" },
+    { id: "bien-duong-hep", start: 365.2, end: 412.4, title: "10. Biển đường hẹp: Hai chiều, Nhường, Ưu tiên" },
+    { id: "ca-hai-y", start: 413.1, end: 452.8, title: "11. Mẹo: Khi nào Cả hai ý là đáp án" }
+  ];
+
+  const audio = document.getElementById('global-audio');
+  const btnPlay = document.getElementById('btn-master-play');
+  const playIcon = document.getElementById('play-icon');
+  const trackTitle = document.getElementById('player-track-title');
+  const statusText = document.getElementById('player-status-text');
+  const timeCurr = document.getElementById('time-curr');
+  const timeTotal = document.getElementById('time-total');
+  const seekSlider = document.getElementById('seek-slider');
+
+  let activeCardId = null;
+  let isMasterPlaying = false;
+
+  function formatTime(sec) {
+    if (isNaN(sec)) return "00:00";
+    const m = Math.floor(sec / 60);
+    const s = Math.floor(sec % 60);
+    return `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
+  }
+
+  function updatePlayIcon(isPlaying) {
+    if (isPlaying) {
+      playIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+    } else {
+      playIcon.innerHTML = '<path d="M8 5v14l11-7z"/>';
+    }
+  }
+
+  function highlightCard(domId, shouldScroll = true) {
+    if (activeCardId === domId && !shouldScroll) return;
+    activeCardId = domId;
+
+    document.querySelectorAll('.card').forEach(c => {
+      c.classList.remove('is-active-reading');
+    });
+
+    if (!domId || domId === 'topbar') return;
+
+    const el = document.getElementById(domId);
+    if (el) {
+      el.classList.add('is-active-reading');
+      if (shouldScroll) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+  }
+
+  window.toggleMasterPlay = function() {
+    if (audio.paused) {
+      if (!audio.src.includes('tong_hop_confusable')) {
+        audio.src = 'audio/confusable/tong_hop_confusable.mp3';
+        trackTitle.textContent = 'Toàn bộ 11 cạm bẫy';
+      }
+      isMasterPlaying = true;
+      audio.play().then(() => {
+        updatePlayIcon(true);
+        statusText.textContent = 'ĐANG PHÁT TỔNG HỢP';
+      }).catch(err => console.error(err));
+    } else {
+      audio.pause();
+      updatePlayIcon(false);
+      statusText.textContent = 'TẠM DỪNG';
+    }
+  };
+
+  window.playConfusableAudio = function(src, title, domId) {
+    isMasterPlaying = false;
+    audio.src = src;
+    trackTitle.textContent = title;
+    audio.play().then(() => {
+      updatePlayIcon(true);
+      statusText.textContent = 'ĐANG PHÁT MỤC';
+      if (domId) {
+        highlightCard(domId, true);
+      }
+    }).catch(err => console.error(err));
+  };
+
+  window.seekAudio = function(percent) {
+    if (audio.duration) {
+      audio.currentTime = (percent / 100) * audio.duration;
+    }
+  };
+
+  window.setPlaybackSpeed = function(speed, btn) {
+    audio.playbackRate = speed;
+    document.querySelectorAll('.speed-pill').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  };
+
+  audio.addEventListener('timeupdate', () => {
+    timeCurr.textContent = formatTime(audio.currentTime);
+    if (audio.duration) {
+      seekSlider.value = (audio.currentTime / audio.duration) * 100;
+      timeTotal.textContent = formatTime(audio.duration);
+    }
+
+    if (isMasterPlaying && audio.src.includes('tong_hop_confusable')) {
+      const curr = audio.currentTime;
+      const currentCue = CONFUSABLE_TIMELINE.find(c => curr >= c.start && curr < c.end);
+      if (currentCue && currentCue.id !== activeCardId) {
+        trackTitle.textContent = currentCue.title;
+        highlightCard(currentCue.id, true);
+      }
+    }
+  });
+
+  audio.addEventListener('loadedmetadata', () => {
+    timeTotal.textContent = formatTime(audio.duration);
+  });
+
+  audio.addEventListener('ended', () => {
+    updatePlayIcon(false);
+    statusText.textContent = 'HOÀN TẤT';
+    highlightCard(null, false);
+  });
+})();
+</script>
+
 </body>
 </html>
